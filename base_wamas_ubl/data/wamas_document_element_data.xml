@@ -5,4 +5,8 @@
         <field name="freq_xml_path">./cac:DespatchLine</field>
     </record>
 
+    <record id="base_wamas.wamas_document_element_ausp" model="wamas.document.element">
+        <field name="freq_xml_path">./cac:DespatchLine</field>
+    </record>
+
 </odoo>

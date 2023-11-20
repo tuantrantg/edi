@@ -143,4 +143,214 @@
         />
     </record>
 
+    <record id="wamas_document_element_ausk" model="wamas.document.element">
+        <field name="name">AUSK</field>
+        <field name="code">AUSK</field>
+        <field
+            name="df_field_template_id"
+            ref="wamas_document_default_field_template_ausk"
+        />
+        <field
+            name="field_ids"
+            eval="[(6, 0, [
+            ref('wamas_document_field_ausk_client'),
+            ref('wamas_document_field_ausk_order_number'),
+            ref('wamas_document_field_ausk_output_id_for_host'),
+            ref('wamas_document_field_ausk_external_reference'),
+            ref('wamas_document_field_ausk_order_type'),
+            ref('wamas_document_field_ausk_client_2'),
+            ref('wamas_document_field_ausk_customer_number'),
+            ref('wamas_document_field_ausk_name_1'),
+            ref('wamas_document_field_ausk_name_2'),
+            ref('wamas_document_field_ausk_name_3'),
+            ref('wamas_document_field_ausk_name_4'),
+            ref('wamas_document_field_ausk_title'),
+            ref('wamas_document_field_ausk_address_1'),
+            ref('wamas_document_field_ausk_address_2'),
+            ref('wamas_document_field_ausk_postal_code'),
+            ref('wamas_document_field_ausk_location'),
+            ref('wamas_document_field_ausk_district'),
+            ref('wamas_document_field_ausk_country'),
+            ref('wamas_document_field_ausk_phone_number'),
+            ref('wamas_document_field_ausk_email'),
+            ref('wamas_document_field_ausk_fax_number'),
+            ref('wamas_document_field_ausk_home_page'),
+            ref('wamas_document_field_ausk_iln_gln'),
+            ref('wamas_document_field_ausk_name_1_2'),
+            ref('wamas_document_field_ausk_name_2_2'),
+            ref('wamas_document_field_ausk_name_3_2'),
+            ref('wamas_document_field_ausk_name_4_2'),
+            ref('wamas_document_field_ausk_title_2'),
+            ref('wamas_document_field_ausk_address_1_2'),
+            ref('wamas_document_field_ausk_address_2_2'),
+            ref('wamas_document_field_ausk_postal_code_2'),
+            ref('wamas_document_field_ausk_location_2'),
+            ref('wamas_document_field_ausk_district_2'),
+            ref('wamas_document_field_ausk_country_2'),
+            ref('wamas_document_field_ausk_phone_number_2'),
+            ref('wamas_document_field_ausk_email_2'),
+            ref('wamas_document_field_ausk_fax_number_2'),
+            ref('wamas_document_field_ausk_home_page_2'),
+            ref('wamas_document_field_ausk_iln_gln_2'),
+            ref('wamas_document_field_ausk_name_1_3'),
+            ref('wamas_document_field_ausk_name_2_3'),
+            ref('wamas_document_field_ausk_name_3_3'),
+            ref('wamas_document_field_ausk_name_4_3'),
+            ref('wamas_document_field_ausk_title_3'),
+            ref('wamas_document_field_ausk_address_3'),
+            ref('wamas_document_field_ausk_address_2_3'),
+            ref('wamas_document_field_ausk_postal_code_3'),
+            ref('wamas_document_field_ausk_location_3'),
+            ref('wamas_document_field_ausk_district_3'),
+            ref('wamas_document_field_ausk_country_3'),
+            ref('wamas_document_field_ausk_phone_number_3'),
+            ref('wamas_document_field_ausk_email_3'),
+            ref('wamas_document_field_ausk_fax_number_3'),
+            ref('wamas_document_field_ausk_home_page_3'),
+            ref('wamas_document_field_ausk_iln_gln_3'),
+            ref('wamas_document_field_ausk_expected_availability_date'),
+            ref('wamas_document_field_ausk_warehouse_sequence'),
+            ref('wamas_document_field_ausk_information_for_wamas'),
+            ref('wamas_document_field_ausk_unloading_point'),
+            ref('wamas_document_field_ausk_delivery_date'),
+            ref('wamas_document_field_ausk_order_date'),
+            ref('wamas_document_field_ausk_possible_delivery_date'),
+            ref('wamas_document_field_ausk_delivery_time'),
+            ref('wamas_document_field_ausk_possible_availability_date'),
+            ref('wamas_document_field_ausk_availability_time'),
+            ref('wamas_document_field_ausk_tour_number'),
+            ref('wamas_document_field_ausk_tour_id_for_host'),
+            ref('wamas_document_field_ausk_sm_gate'),
+            ref('wamas_document_field_ausk_max_weight_kg'),
+            ref('wamas_document_field_ausk_max_number_of_loading_units'),
+            ref('wamas_document_field_ausk_std_volume_of_le_dm3'),
+            ref('wamas_document_field_ausk_vehicle_id_1'),
+            ref('wamas_document_field_ausk_vehicle_id_2'),
+            ref('wamas_document_field_ausk_truck_type'),
+            ref('wamas_document_field_ausk_truck_driver'),
+            ref('wamas_document_field_ausk_truck_passenger'),
+            ref('wamas_document_field_ausk_shift_id'),
+            ref('wamas_document_field_ausk_loading_sequence_number'),
+            ref('wamas_document_field_ausk_priority'),
+            ref('wamas_document_field_ausk_information'),
+            ref('wamas_document_field_ausk_group_id'),
+            ref('wamas_document_field_ausk_shipping_type'),
+            ref('wamas_document_field_ausk_warehouse_sequence_2'),
+            ref('wamas_document_field_ausk_planning_strategy'),
+        ])]"
+        />
+    </record>
+
+    <record id="wamas_document_element_ausp" model="wamas.document.element">
+        <field name="name">AUSP</field>
+        <field name="code">AUSP</field>
+        <field
+            name="df_field_template_id"
+            ref="wamas_document_default_field_template_ausp"
+        />
+
+        <field
+            name="field_ids"
+            eval="[(6, 0, [
+            ref('wamas_document_field_ausp_client'),
+            ref('wamas_document_field_ausp_order_number'),
+            ref('wamas_document_field_ausp_output_id_for_host'),
+            ref('wamas_document_field_ausp_external_reference'),
+            ref('wamas_document_field_ausp_host_pos_nr'),
+            ref('wamas_document_field_ausp_client_2'),
+            ref('wamas_document_field_ausp_item_number'),
+            ref('wamas_document_field_ausp_variant'),
+            ref('wamas_document_field_ausp_booking_number'),
+            ref('wamas_document_field_ausp_material_qualifier_1'),
+            ref('wamas_document_field_ausp_material_qualifier_2'),
+            ref('wamas_document_field_ausp_material_qualifier_3'),
+            ref('wamas_document_field_ausp_basic_price'),
+            ref('wamas_document_field_ausp_retail_price'),
+            ref('wamas_document_field_ausp_currency_of_retail_price'),
+            ref('wamas_document_field_ausp_quantity'),
+            ref('wamas_document_field_ausp_host_unit'),
+            ref('wamas_document_field_ausp_pass_through_price'),
+            ref('wamas_document_field_ausp_currency_of_pass_through_price'),
+            ref('wamas_document_field_ausp_wp_action_identifier'),
+            ref('wamas_document_field_ausp_lvp_action_identifier'),
+            ref('wamas_document_field_ausp_action_number'),
+            ref('wamas_document_field_ausp_presale_number'),
+            ref('wamas_document_field_ausp_information'),
+            ref('wamas_document_field_ausp_host_batch'),
+            ref('wamas_document_field_ausp_warehouse_sequence'),
+            ref('wamas_document_field_ausp_serial_number'),
+            ref('wamas_document_field_ausp_batch'),
+            ref('wamas_document_field_ausp_remaining_shelf_life_sm_days'),
+            ref('wamas_document_field_ausp_asc_fifo'),
+            ref('wamas_document_field_ausp_id_for_grouping_items'),
+        ])]"
+        />
+    </record>
+
+    <record id="wamas_document_element_watekq" model="wamas.document.element">
+        <field name="name">WATEKQ</field>
+        <field name="code">WATEKQ</field>
+        <field
+            name="df_field_template_id"
+            ref="wamas_document_default_field_template_watekq"
+        />
+
+        <field
+            name="field_ids"
+            eval="[(6, 0, [
+            ref('wamas_document_field_watekq_id_ut'),
+            ref('wamas_document_field_watekq_location'),
+            ref('wamas_document_field_watekq_x_coordinate'),
+            ref('wamas_document_field_watekq_y_coordinate'),
+            ref('wamas_document_field_watekq_z_coordinate'),
+            ref('wamas_document_field_watekq_base_id_ut'),
+            ref('wamas_document_field_watekq_number_of_sub_uts'),
+            ref('wamas_document_field_watekq_tour_number'),
+            ref('wamas_document_field_watekq_tour_id_for_host'),
+            ref('wamas_document_field_watekq_type_of_transportation_assistance'),
+            ref('wamas_document_field_watekq_max_height'),
+            ref('wamas_document_field_watekq_delivery_type'),
+            ref('wamas_document_field_watekq_continuing_number_of_the_tour'),
+            ref('wamas_document_field_watekq_total_weight'),
+            ref('wamas_document_field_watekq_delivery_note_number'),
+        ])]"
+        />
+    </record>
+
+    <record id="wamas_document_element_watepq" model="wamas.document.element">
+        <field name="name">WATEPQ</field>
+        <field name="code">WATEPQ</field>
+        <field
+            name="df_field_template_id"
+            ref="wamas_document_default_field_template_watepq"
+        />
+
+        <field
+            name="field_ids"
+            eval="[(6, 0, [
+            ref('wamas_document_field_watepq_batch'),
+            ref('wamas_document_field_watepq_expiration_date'),
+            ref('wamas_document_field_watepq_booking_number'),
+            ref('wamas_document_field_watepq_em_number'),
+            ref('wamas_document_field_watepq_kz_transport_assistance'),
+            ref('wamas_document_field_watepq_primary_thm'),
+            ref('wamas_document_field_watepq_fifo_date'),
+            ref('wamas_document_field_watepq_ut_position_number'),
+            ref('wamas_document_field_watepq_host_unit'),
+            ref('wamas_document_field_watepq_host_weight_unit'),
+            ref('wamas_document_field_watepq_client'),
+            ref('wamas_document_field_watepq_order_number'),
+            ref('wamas_document_field_watepq_output_id_for_host'),
+            ref('wamas_document_field_watepq_host_pos_nr'),
+            ref('wamas_document_field_watepq_client_2'),
+            ref('wamas_document_field_watepq_item_number'),
+            ref('wamas_document_field_watepq_variant'),
+            ref('wamas_document_field_watepq_quantity'),
+            ref('wamas_document_field_watepq_weight'),
+            ref('wamas_document_field_watepq_host_hardware_qualification_id'),
+            ref('wamas_document_field_watepq_tu_number'),
+        ])]"
+        />
+    </record>
+
 </odoo>

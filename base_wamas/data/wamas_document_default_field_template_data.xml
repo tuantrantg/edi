@@ -33,4 +33,36 @@
         <field name="code">Default Field Template - WEAPQ</field>
     </record>
 
+    <record
+        id="wamas_document_default_field_template_ausk"
+        model="wamas.document.default.field.template"
+    >
+        <field name="name">Default Field Template - AUSK</field>
+        <field name="code">Default Field Template - AUSK</field>
+    </record>
+
+    <record
+        id="wamas_document_default_field_template_ausp"
+        model="wamas.document.default.field.template"
+    >
+        <field name="name">Default Field Template - AUSP</field>
+        <field name="code">Default Field Template - AUSP</field>
+    </record>
+
+    <record
+        id="wamas_document_default_field_template_watekq"
+        model="wamas.document.default.field.template"
+    >
+        <field name="name">Default Field Template - WATEKQ</field>
+        <field name="code">Default Field Template - WATEKQ</field>
+    </record>
+
+    <record
+        id="wamas_document_default_field_template_watepq"
+        model="wamas.document.default.field.template"
+    >
+        <field name="name">Default Field Template - WATEPQ</field>
+        <field name="code">Default Field Template - WATEPQ</field>
+    </record>
+
 </odoo>

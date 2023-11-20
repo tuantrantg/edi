@@ -21,6 +21,9 @@ def get_item_from_xml(
         if xml_path:
             if freq and "%s" in xml_path:
                 xml_path = xml_path % str(freq)
+            print('\n\n> get_item_from_xml >>>>>>>>>>>>>>>>>>>>>>')
+            print('@@ field @@', field)
+            print('@@ xml_path @@', xml_path)
             val = xml_root.xpath(xml_path, namespaces=ns)
             if isinstance(val, list):
                 val = len(val) > 0 and val[0] or ""

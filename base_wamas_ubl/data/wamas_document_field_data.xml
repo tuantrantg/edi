@@ -289,4 +289,296 @@
         >normalize-space(/main:DespatchAdvice/cac:Shipment/cac:Delivery/cac:EstimatedDeliveryPeriod)</field>
     </record>
 
+    <!-- Fields of element `AUSK` -->
+
+    <record
+        id="base_wamas.wamas_document_field_ausk_client"
+        model="wamas.document.field"
+    >
+        <field name="xml_default_value">000</field>
+    </record>
+
+    <record
+        id="base_wamas.wamas_document_field_ausk_order_number"
+        model="wamas.document.field"
+    >
+        <field name="xml_path">/main:DespatchAdvice/cbc:ID/text()</field>
+    </record>
+
+    <record
+        id="base_wamas.wamas_document_field_ausk_output_id_for_host"
+        model="wamas.document.field"
+    >
+        <field name="xml_default_value">HOST</field>
+    </record>
+
+    <record
+        id="base_wamas.wamas_document_field_ausk_external_reference"
+        model="wamas.document.field"
+    >
+        <field name="xml_path">/main:DespatchAdvice/cbc:ID/text()</field>
+    </record>
+
+    <record
+        id="base_wamas.wamas_document_field_ausk_customer_number"
+        model="wamas.document.field"
+    >
+        <field
+            name="xml_path"
+        >/main:DespatchAdvice/cac:DespatchSupplierParty/cbc:CustomerAssignedAccountID/text()</field>
+    </record>
+
+    <record
+        id="base_wamas.wamas_document_field_ausk_name_1_2"
+        model="wamas.document.field"
+    >
+        <field
+            name="xml_path"
+        >/main:DespatchAdvice/cac:DeliveryCustomerParty/cac:Party/cac:Contact/cbc:Name/text()</field>
+    </record>
+
+    <record
+        id="base_wamas.wamas_document_field_ausk_name_4_2"
+        model="wamas.document.field"
+    >
+        <field
+            name="xml_path"
+        >/main:DespatchAdvice/cac:DeliveryCustomerParty/cac:Party/cac:PartyName/cbc:Name/text()</field>
+    </record>
+
+    <record
+        id="base_wamas.wamas_document_field_ausk_address_1_2"
+        model="wamas.document.field"
+    >
+        <field
+            name="xml_path"
+        >/main:DespatchAdvice/cac:DeliveryCustomerParty/cac:Party/cac:PostalAddress/cbc:StreetName/text()</field>
+    </record>
+
+    <record
+        id="base_wamas.wamas_document_field_ausk_postal_code_2"
+        model="wamas.document.field"
+    >
+        <field
+            name="xml_path"
+        >/main:DespatchAdvice/cac:DeliveryCustomerParty/cac:Party/cac:PostalAddress/cbc:PostalZone/text()</field>
+    </record>
+
+    <record
+        id="base_wamas.wamas_document_field_ausk_location_2"
+        model="wamas.document.field"
+    >
+        <field
+            name="xml_path"
+        >/main:DespatchAdvice/cac:DeliveryCustomerParty/cac:Party/cac:PostalAddress/cbc:CityName/text()</field>
+    </record>
+
+    <record
+        id="base_wamas.wamas_document_field_ausk_district_2"
+        model="wamas.document.field"
+    >
+        <field
+            name="xml_path"
+        >/main:DespatchAdvice/cac:DeliveryCustomerParty/cac:Party/cac:PostalAddress/cbc:CountrySubentity/text()</field>
+    </record>
+
+    <record
+        id="base_wamas.wamas_document_field_ausk_district_2"
+        model="wamas.document.field"
+    >
+        <field
+            name="xml_path"
+        >/main:DespatchAdvice/cac:DeliveryCustomerParty/cac:Party/cac:PostalAddress/cac:Country/cbc:IdentificationCode/text()</field>
+    </record>
+
+    <record
+        id="base_wamas.wamas_document_field_ausk_phone_number_2"
+        model="wamas.document.field"
+    >
+        <field
+            name="xml_path"
+        >/main:DespatchAdvice/cac:DeliveryCustomerParty/cac:Party/cac:Contact/cbc:Telephone/text()</field>
+    </record>
+
+    <record
+        id="base_wamas.wamas_document_field_ausk_email_2"
+        model="wamas.document.field"
+    >
+        <field
+            name="xml_path"
+        >/main:DespatchAdvice/cac:DeliveryCustomerParty/cac:Party/cac:Contact/cbc:ElectronicMail/text()</field>
+    </record>
+
+    <record
+        id="base_wamas.wamas_document_field_ausk_fax_number_2"
+        model="wamas.document.field"
+    >
+        <field
+            name="xml_path"
+        >/main:DespatchAdvice/cac:DeliveryCustomerParty/cac:Party/cac:Contact/cbc:Telefax/text()</field>
+    </record>
+
+    <record
+        id="base_wamas.wamas_document_field_ausk_expected_availability_date"
+        model="wamas.document.field"
+    >
+        <field
+            name="xml_path"
+        >normalize-space(/main:DespatchAdvice/cac:Shipment/cac:Delivery/cac:EstimatedDeliveryPeriod)</field>
+    </record>
+
+    <record
+        id="base_wamas.wamas_document_field_ausk_warehouse_sequence"
+        model="wamas.document.field"
+    >
+        <field
+            name="xml_path"
+        >/main:DespatchAdvice/cac:Shipment/cac:Delivery/cac:Despatch/cbc:DespatchLocation/cbc:ID/text()</field>
+    </record>
+
+    <record
+        id="base_wamas.wamas_document_field_ausk_tour_number"
+        model="wamas.document.field"
+    >
+        <field name="xml_path">/main:DespatchAdvice/cac:Shipment/cbc:ID/text()</field>
+    </record>
+
+    <record
+        id="base_wamas.wamas_document_field_ausk_shipping_type"
+        model="wamas.document.field"
+    >
+        <field name="xml_default_value">ST</field>
+    </record>
+
+    <record
+        id="base_wamas.wamas_document_field_ausk_planning_strategy"
+        model="wamas.document.field"
+    >
+        <field name="xml_default_value">Def_Strat</field>
+    </record>
+
+    <!-- Fields of element `AUSP` -->
+
+    <record
+        id="base_wamas.wamas_document_field_ausp_client"
+        model="wamas.document.field"
+    >
+        <field name="xml_default_value">000</field>
+    </record>
+
+    <record
+        id="base_wamas.wamas_document_field_ausp_order_number"
+        model="wamas.document.field"
+    >
+        <field name="xml_path">/main:DespatchAdvice/cbc:ID/text()</field>
+    </record>
+
+    <record
+        id="base_wamas.wamas_document_field_ausp_output_id_for_host"
+        model="wamas.document.field"
+    >
+        <field name="xml_default_value">HOST</field>
+    </record>
+
+    <record
+        id="base_wamas.wamas_document_field_ausp_external_reference"
+        model="wamas.document.field"
+    >
+        <field
+            name="xml_path"
+        >/main:DespatchAdvice/cac:DespatchLine[%s]/cbc:ID/text()</field>
+    </record>
+
+    <record
+        id="base_wamas.wamas_document_field_ausp_host_pos_nr"
+        model="wamas.document.field"
+    >
+        <field
+            name="xml_path"
+        >substring(/main:DespatchAdvice/cac:DespatchLine[%s]/cbc:ID/text(), 1, 6)</field>
+    </record>
+
+    <record
+        id="base_wamas.wamas_document_field_ausp_client_2"
+        model="wamas.document.field"
+    >
+        <field name="xml_default_value">000</field>
+    </record>
+
+    <record
+        id="base_wamas.wamas_document_field_ausp_item_number"
+        model="wamas.document.field"
+    >
+        <field
+            name="xml_path"
+        >/main:DespatchAdvice/cac:DespatchLine[%s]/cac:Item/cac:SellersItemIdentification/cbc:ID/text()</field>
+    </record>
+
+    <record
+        id="base_wamas.wamas_document_field_ausp_variant"
+        model="wamas.document.field"
+    >
+        <field name="xml_default_value">00000</field>
+    </record>
+
+    <record
+        id="base_wamas.wamas_document_field_ausp_material_qualifier_1"
+        model="wamas.document.field"
+    >
+        <field name="xml_default_value">DISPONIBLE</field>
+    </record>
+
+    <record
+        id="base_wamas.wamas_document_field_ausp_quantity"
+        model="wamas.document.field"
+    >
+        <field
+            name="xml_path"
+        >/main:DespatchAdvice/cac:DespatchLine[%s]/cbc:DeliveredQuantity/text()</field>
+    </record>
+
+    <record
+        id="base_wamas.wamas_document_field_ausp_host_unit"
+        model="wamas.document.field"
+    >
+        <field
+            name="xml_path"
+        >/main:DespatchAdvice/cac:DespatchLine[%s]/cbc:DeliveredQuantity/@unitCode</field>
+    </record>
+
+    <record
+        id="base_wamas.wamas_document_field_ausp_wp_action_identifier"
+        model="wamas.document.field"
+    >
+        <field name="xml_default_value">N</field>
+    </record>
+
+    <record
+        id="base_wamas.wamas_document_field_ausp_lvp_action_identifier"
+        model="wamas.document.field"
+    >
+        <field name="xml_default_value">N</field>
+    </record>
+
+    <record
+        id="base_wamas.wamas_document_field_ausp_host_batch"
+        model="wamas.document.field"
+    >
+        <field name="xml_default_value">N</field>
+    </record>
+
+    <record
+        id="base_wamas.wamas_document_field_ausp_remaining_shelf_life_sm_days"
+        model="wamas.document.field"
+    >
+        <field name="xml_default_value">0000</field>
+    </record>
+
+    <record
+        id="base_wamas.wamas_document_field_ausp_asc_fifo"
+        model="wamas.document.field"
+    >
+        <field name="xml_default_value">N</field>
+    </record>
+
 </odoo>

@@ -201,4 +201,204 @@
         <field name="template_id" ref="wamas_document_default_field_template_weapq" />
     </record>
 
+    <!-- AUSK -->
+
+    <record
+        id="wamas_document_default_field_template_ausk_f_source"
+        model="wamas.document.default.field.template.line"
+    >
+        <field name="sequence">10</field>
+        <field name="df_field_id" ref="wamas_document_default_field_source" />
+        <field name="template_id" ref="wamas_document_default_field_template_ausk" />
+    </record>
+
+    <record
+        id="wamas_document_default_field_template_ausk_f_destination"
+        model="wamas.document.default.field.template.line"
+    >
+        <field name="sequence">20</field>
+        <field name="df_field_id" ref="wamas_document_default_field_destination" />
+        <field name="template_id" ref="wamas_document_default_field_template_ausk" />
+    </record>
+
+    <record
+        id="wamas_document_default_field_template_ausk_f_telegram_sequence"
+        model="wamas.document.default.field.template.line"
+    >
+        <field name="sequence">30</field>
+        <field
+            name="df_field_id"
+            ref="wamas_document_default_field_telegram_sequence"
+        />
+        <field name="template_id" ref="wamas_document_default_field_template_ausk" />
+    </record>
+
+    <record
+        id="wamas_document_default_field_template_ausk_f_creation_time"
+        model="wamas.document.default.field.template.line"
+    >
+        <field name="sequence">40</field>
+        <field name="df_field_id" ref="wamas_document_default_field_creation_time" />
+        <field name="template_id" ref="wamas_document_default_field_template_ausk" />
+    </record>
+
+    <record
+        id="wamas_document_default_field_template_ausk_f_sentence_type"
+        model="wamas.document.default.field.template.line"
+    >
+        <field name="sequence">50</field>
+        <field name="df_field_id" ref="wamas_document_default_field_sentence_type" />
+        <field name="template_id" ref="wamas_document_default_field_template_ausk" />
+    </record>
+
+    <!-- AUSP -->
+
+    <record
+        id="wamas_document_default_field_template_ausp_f_source"
+        model="wamas.document.default.field.template.line"
+    >
+        <field name="sequence">10</field>
+        <field name="df_field_id" ref="wamas_document_default_field_source" />
+        <field name="template_id" ref="wamas_document_default_field_template_ausp" />
+    </record>
+
+    <record
+        id="wamas_document_default_field_template_ausp_f_destination"
+        model="wamas.document.default.field.template.line"
+    >
+        <field name="sequence">20</field>
+        <field name="df_field_id" ref="wamas_document_default_field_destination" />
+        <field name="template_id" ref="wamas_document_default_field_template_ausp" />
+    </record>
+
+    <record
+        id="wamas_document_default_field_template_ausp_f_telegram_sequence"
+        model="wamas.document.default.field.template.line"
+    >
+        <field name="sequence">30</field>
+        <field
+            name="df_field_id"
+            ref="wamas_document_default_field_telegram_sequence"
+        />
+        <field name="template_id" ref="wamas_document_default_field_template_ausp" />
+    </record>
+
+    <record
+        id="wamas_document_default_field_template_ausp_f_creation_time"
+        model="wamas.document.default.field.template.line"
+    >
+        <field name="sequence">40</field>
+        <field name="df_field_id" ref="wamas_document_default_field_creation_time" />
+        <field name="template_id" ref="wamas_document_default_field_template_ausp" />
+    </record>
+
+    <record
+        id="wamas_document_default_field_template_ausp_f_sentence_type"
+        model="wamas.document.default.field.template.line"
+    >
+        <field name="sequence">50</field>
+        <field name="df_field_id" ref="wamas_document_default_field_sentence_type" />
+        <field name="template_id" ref="wamas_document_default_field_template_ausp" />
+    </record>
+
+    <!-- WATEKQ -->
+
+    <record
+        id="wamas_document_default_field_template_watekq_f_source"
+        model="wamas.document.default.field.template.line"
+    >
+        <field name="sequence">10</field>
+        <field name="df_field_id" ref="wamas_document_default_field_source" />
+        <field name="template_id" ref="wamas_document_default_field_template_watekq" />
+    </record>
+
+    <record
+        id="wamas_document_default_field_template_watekq_f_destination"
+        model="wamas.document.default.field.template.line"
+    >
+        <field name="sequence">20</field>
+        <field name="df_field_id" ref="wamas_document_default_field_destination" />
+        <field name="template_id" ref="wamas_document_default_field_template_watekq" />
+    </record>
+
+    <record
+        id="wamas_document_default_field_template_watekq_f_telegram_sequence"
+        model="wamas.document.default.field.template.line"
+    >
+        <field name="sequence">30</field>
+        <field
+            name="df_field_id"
+            ref="wamas_document_default_field_telegram_sequence"
+        />
+        <field name="template_id" ref="wamas_document_default_field_template_watekq" />
+    </record>
+
+    <record
+        id="wamas_document_default_field_template_watekq_f_creation_time"
+        model="wamas.document.default.field.template.line"
+    >
+        <field name="sequence">40</field>
+        <field name="df_field_id" ref="wamas_document_default_field_creation_time" />
+        <field name="template_id" ref="wamas_document_default_field_template_watekq" />
+    </record>
+
+    <record
+        id="wamas_document_default_field_template_watekq_f_sentence_type"
+        model="wamas.document.default.field.template.line"
+    >
+        <field name="sequence">50</field>
+        <field name="df_field_id" ref="wamas_document_default_field_sentence_type" />
+        <field name="template_id" ref="wamas_document_default_field_template_watekq" />
+    </record>
+
+    <!-- WATEPQ -->
+
+    <record
+        id="wamas_document_default_field_template_watepq_f_source"
+        model="wamas.document.default.field.template.line"
+    >
+        <field name="sequence">10</field>
+        <field name="df_field_id" ref="wamas_document_default_field_source" />
+        <field name="template_id" ref="wamas_document_default_field_template_watepq" />
+    </record>
+
+    <record
+        id="wamas_document_default_field_template_watepq_f_destination"
+        model="wamas.document.default.field.template.line"
+    >
+        <field name="sequence">20</field>
+        <field name="df_field_id" ref="wamas_document_default_field_destination" />
+        <field name="template_id" ref="wamas_document_default_field_template_watepq" />
+    </record>
+
+    <record
+        id="wamas_document_default_field_template_watepq_f_telegram_sequence"
+        model="wamas.document.default.field.template.line"
+    >
+        <field name="sequence">30</field>
+        <field
+            name="df_field_id"
+            ref="wamas_document_default_field_telegram_sequence"
+        />
+        <field name="template_id" ref="wamas_document_default_field_template_watepq" />
+    </record>
+
+    <record
+        id="wamas_document_default_field_template_watepq_f_creation_time"
+        model="wamas.document.default.field.template.line"
+    >
+        <field name="sequence">40</field>
+        <field name="df_field_id" ref="wamas_document_default_field_creation_time" />
+        <field name="template_id" ref="wamas_document_default_field_template_watepq" />
+    </record>
+
+    <record
+        id="wamas_document_default_field_template_watepq_f_sentence_type"
+        model="wamas.document.default.field.template.line"
+    >
+        <field name="sequence">50</field>
+        <field name="df_field_id" ref="wamas_document_default_field_sentence_type" />
+        <field name="template_id" ref="wamas_document_default_field_template_watepq" />
+    </record>
+
 </odoo>

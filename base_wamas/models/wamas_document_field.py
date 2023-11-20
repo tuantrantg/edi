@@ -186,6 +186,8 @@ class WamasDocumentField(models.Model):
     def _set_from_float(self, value):
         self.ensure_one()
 
+        value = value == "" and "0" or value
+
         res = str(float(value))
 
         # Check if it is int / float or not

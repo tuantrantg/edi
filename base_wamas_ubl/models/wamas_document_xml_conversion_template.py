@@ -142,6 +142,8 @@ class WamasDocumentXmlConversionTemplate(models.Model):
         # Generate XML file from the `res` above
         lst_lines = []
 
+        print('\n\n====================== res ==', res)
+
         for items in res:
             found_element = wamas_tmpl.get_proper_element_from_items(items)
             if not found_element:

@@ -73,4 +73,77 @@
         />
     </record>
 
+    <record
+        id="base_wamas.wamas_document_default_field_template_ausk"
+        model="wamas.document.default.field.template"
+    >
+        <field
+            name="line_ids"
+            eval="[(5, 0, 0),
+            (0, 0, {
+                'sequence': 10,
+                'df_field_id': ref('base_wamas.wamas_document_default_field_source'),
+                'xml_default_value': 'SYSLOG'
+            }),
+            (0, 0, {
+                'sequence': 20,
+                'df_field_id': ref('base_wamas.wamas_document_default_field_destination'),
+                'xml_default_value': 'WAMAS'
+            }),
+            (0, 0, {
+                'sequence': 30,
+                'df_field_id': ref('base_wamas.wamas_document_default_field_telegram_sequence'),
+                'xml_default_func': 'get_default_telegram_sequence'
+            }),
+            (0, 0, {
+                'sequence': 40,
+                'df_field_id': ref('base_wamas.wamas_document_default_field_creation_time'),
+                'xml_path': '/main:DespatchAdvice/cbc:IssueDate/text()',
+            }),
+            (0, 0, {
+                'sequence': 50,
+                'df_field_id': ref('base_wamas.wamas_document_default_field_sentence_type'),
+                'xml_default_value': 'AUSK00056'
+            }),
+        ]"
+        />
+    </record>
+
+    <record
+        id="base_wamas.wamas_document_default_field_template_ausp"
+        model="wamas.document.default.field.template"
+    >
+        <field
+            name="line_ids"
+            eval="[(5, 0, 0),
+            (0, 0, {
+                'sequence': 10,
+                'df_field_id': ref('base_wamas.wamas_document_default_field_source'),
+                'xml_default_value': 'SYSLOG'
+            }),
+            (0, 0, {
+                'sequence': 20,
+                'df_field_id': ref('base_wamas.wamas_document_default_field_destination'),
+                'xml_default_value': 'WAMAS'
+            }),
+            (0, 0, {
+                'sequence': 30,
+                'df_field_id': ref('base_wamas.wamas_document_default_field_telegram_sequence'),
+                'xml_path': '/main:DespatchAdvice/cac:DespatchLine[%s]/cac:OrderLineReference/cbc:LineID/text()'
+            }),
+            (0, 0, {
+                'sequence': 40,
+                'df_field_id': ref('base_wamas.wamas_document_default_field_creation_time'),
+                'xml_path': '/main:DespatchAdvice/cbc:IssueDate/text()',
+            }),
+            (0, 0, {
+                'sequence': 50,
+                'df_field_id': ref('base_wamas.wamas_document_default_field_sentence_type'),
+                'xml_default_value': 'AUSP00054'
+            }),
+        ]"
+        />
+    </record>
+
+
 </odoo>

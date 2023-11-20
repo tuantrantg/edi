@@ -16,6 +16,10 @@ class TestBaseWamas(TransactionCase):
         super().setUpClass()
         cls.weak_weap = cls.env.ref("base_wamas.wamas_document_template_weak_weap")
         cls.weakq_weapq = cls.env.ref("base_wamas.wamas_document_template_weakq_weapq")
+        cls.ausk_ausp = cls.env.ref("base_wamas.wamas_document_template_ausk_ausp")
+        cls.watekq_watepq = cls.env.ref(
+            "base_wamas.wamas_document_template_watekq_watepq"
+        )
         cls.tmpfile_path = tempfile.mkstemp(suffix=".txt")[1]
 
     @classmethod
@@ -31,6 +35,14 @@ class TestBaseWamas(TransactionCase):
     def test_weakq_weapq(self):
         path = "base_wamas/tests/files/SAMPLE_WEAKQ_WEAPQ.txt"
         self._run_full_workflow(path, self.weakq_weapq)
+
+    def test_ausk_ausp(self):
+        path = "base_wamas/tests/files/SAMPLE_AUSK_AUSP.txt"
+        self._run_full_workflow(path, self.ausk_ausp)
+
+    def test_watekq_watepq(self):
+        path = "base_wamas/tests/files/SAMPLE_WATEKQ_WATEPQ.txt"
+        self._run_full_workflow(path, self.watekq_watepq)
 
     def _run_full_workflow(self, path, template_rec):
         # Get the data from WAMAS document file
