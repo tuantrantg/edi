@@ -1,6 +1,7 @@
 #!/usr/bin/python3
 
 import getopt
+from pprint import pprint
 import re
 import struct
 import sys
@@ -95,8 +96,17 @@ def dict2ubl(template, data):
 
 def wamas2ubl(infile):
     data = wamas2dict(infile)
-    print(data)
-    ubl_template = open("ubl_template/picking.xml").read()
+    pprint(data)
+    top_keys = list(data.keys())
+    if top_keys == ["WEAKQ", "WEAPQ"]:
+        template_type = "reception"
+    elif top_keys == ["WATEKQ", "WATEPQ"]:
+        template_type = "picking"
+    else:
+        raise Exception(
+            "Could not match input wamas file with a corresponding template type: %s"
+            % top_keys)
+    ubl_template = open(f"ubl_template/{template_type}.xml").read()
     ubl = dict2ubl(ubl_template, data)
     print(ubl)
 
