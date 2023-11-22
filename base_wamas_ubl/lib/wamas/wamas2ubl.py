@@ -12,7 +12,7 @@ import miniqweb
 from datetime import datetime
 from dateutil.parser import parse
 
-from wamas_grammar import weakq, weapq, watekq, watepq  # noqa: F401
+from wamas_grammar import auskq, weakq, weapq, watekq, watepq  # noqa: F401
 
 telegram_header_grammar = {
     "Telheader_Quelle": 10,
@@ -50,7 +50,10 @@ def wamas2dict(infile):
             continue
         head = fw2dict(line[:header_len], telegram_header_grammar)
         telegram_type, telegram_seq, dummy = re.split(r"(\d+)", head["Satzart"], 1)
-        if telegram_type not in ("WEAKQ", "WEAPQ", "WATEKQ", "WATEPQ"):
+        # ignore useless telegram types
+        if telegram_type in ("AUSPQ", "TOURQ", "TAUSPQ"):
+            continue
+        if telegram_type not in ("AUSKQ",  "WEAKQ", "WEAPQ", "WATEKQ", "WATEPQ"):
             raise Exception("Invalid telegram type: %s" % telegram_type)
         grammar = eval(telegram_type.lower()).grammar
         body = fw2dict(line[header_len:], grammar)
@@ -101,7 +104,7 @@ def wamas2ubl(infile):
     top_keys = list(data.keys())
     if top_keys == ["WEAKQ", "WEAPQ"]:
         template_type = "reception"
-    elif top_keys == ["WATEKQ", "WATEPQ"]:
+    elif top_keys[:2] == ["WATEKQ", "WATEPQ"]:
         template_type = "picking"
     else:
         raise Exception(
