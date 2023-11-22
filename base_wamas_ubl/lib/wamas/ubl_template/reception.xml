@@ -8,7 +8,7 @@
         <cbc:IssueDate>2023-05-01</cbc:IssueDate>
     </cac:OrderReference>
     <cac:DespatchSupplierParty>
-        <cbc:CustomerAssignedAccountID>1040</cbc:CustomerAssignedAccountID>
+        <cbc:CustomerAssignedAccountID><t t-raw="record.WEAKQ[0].LST_LiefNr"/></cbc:CustomerAssignedAccountID>
         <cac:Party>
             <cac:PartyName>
                 <cbc:Name></cbc:Name>
