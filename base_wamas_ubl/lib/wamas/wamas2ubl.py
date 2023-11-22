@@ -1,5 +1,6 @@
 #!/usr/bin/python3
 
+import codecs
 import getopt
 from pprint import pprint
 import re
@@ -123,7 +124,7 @@ def main(argv):
             usage(argv)
             sys.exit()
         elif opt in ("-i", "--ifile"):
-            infile = open(arg).read()
+            infile = codecs.open(arg, 'r', 'iso-8859-15').read()
     if not infile:
         usage(argv)
         sys.exit()
