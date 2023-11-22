@@ -88,8 +88,8 @@ def dict2ubl(template, data):
     # Convert dict to object to use dotted notation in template
     globals_dict = {
         'record': obj(data),
-        'get_date': eval('get_date'),
-        'get_time': eval('get_time'),
+        'get_date': get_date,
+        'get_time': get_time,
     }
     xml = t.render(globals_dict)
     return xml
