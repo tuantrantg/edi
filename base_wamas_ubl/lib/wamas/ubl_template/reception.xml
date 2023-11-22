@@ -70,7 +70,7 @@
         <cbc:ID><t t-raw="rec.IvWeap_ExtRef"/></cbc:ID>
         <cbc:DeliveredQuantity t-att-unitCode="rec.IvArt_Bestand_Einheit"><t t-raw="rec.IvWevp_LiefMngs_Mng"/></cbc:DeliveredQuantity>
         <cac:OrderLineReference>
-            <cbc:LineID><t t-raw="rec.IvWevp_LiefMngs_Mng"/></cbc:LineID>
+            <cbc:LineID><t t-raw="rec_index"/></cbc:LineID>
         </cac:OrderLineReference>
         <cac:Item>
             <cac:BuyersItemIdentification>
