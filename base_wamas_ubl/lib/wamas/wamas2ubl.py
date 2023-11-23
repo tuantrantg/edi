@@ -13,6 +13,14 @@ from . import miniqweb
 from datetime import datetime
 from dateutil.parser import parse
 
+import logging
+_logger = logging.getLogger("wamas2ubl")
+
+
+##
+# WAMAS FORMAT SPECS
+##
+
 from .wamas_grammar import auskq, weakq, weapq, watekq, watepq  # noqa: F401
 
 telegram_header_grammar = {
@@ -23,6 +31,28 @@ telegram_header_grammar = {
     "Satzart": 9,
 }
 
+class MappingDict(dict):
+    """
+    A dict that returns the key if there's no corresponding value
+    """
+    def __missing__(self, key):
+        _logger.debug("No mapping found for key: %s", key)
+        return key
+
+MAPPING_WAMAS_TO_UBL = {
+
+    # DespatchLine/DeliveredQuantity[unitCode]
+    # https://docs.peppol.eu/poacc/upgrade-3/codelist/UNECERec20/
+    'unitCode': MappingDict({
+        'BOT': 'XBQ',    # plastic bottle
+        'BOUT': 'XBQ',   # plastic bottle
+        'BOITE': 'XBX',  # box
+        'LITRE': 'LTR',  # litre
+        'PET': 'XBO',    # glass bottle
+        'TETRA': 'X4B',   # tetra pack
+    })
+
+}
 
 def fw2dict(line, grammar):
     """
@@ -94,6 +124,7 @@ def dict2ubl(template, data):
         'record': obj(data),
         'get_date': get_date,
         'get_time': get_time,
+        'MAPPING': MAPPING_WAMAS_TO_UBL
     }
     xml = t.render(globals_dict)
     return xml
@@ -126,13 +157,15 @@ def usage(argv):
 
 def main(argv):
     infile = ""
-    opts, args = getopt.getopt(argv[1:], "hi:", ["ifile="])
+    opts, args = getopt.getopt(argv[1:], "hi:v", ["ifile=", "verbose"])
     for opt, arg in opts:
         if opt == "-h":
             usage(argv)
             sys.exit()
         elif opt in ("-i", "--ifile"):
             infile = codecs.open(arg, 'r', 'iso-8859-15').read()
+        elif opt in ("-v", "--verbose"):
+            logging.basicConfig(level=logging.DEBUG)
     if not infile:
         usage(argv)
         sys.exit()

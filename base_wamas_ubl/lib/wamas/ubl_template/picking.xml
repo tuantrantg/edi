@@ -85,7 +85,7 @@
 			</cac:GrossWeightMeasure>
 		</cac:Shipment>
 		<cbc:ID></cbc:ID>
-        <cbc:DeliveredQuantity t-att-unitCode="rec.IvArt_Bestand_Einheit"><t t-raw="rec.Mngs_Mng"/></cbc:DeliveredQuantity>
+        <cbc:DeliveredQuantity t-att-unitCode="MAPPING['unitCode'][rec.IvArt_Bestand_Einheit]"><t t-raw="rec.Mngs_Mng"/></cbc:DeliveredQuantity>
 		<cac:OrderLineReference>
 			<cbc:LineID></cbc:LineID>
 		</cac:OrderLineReference>
