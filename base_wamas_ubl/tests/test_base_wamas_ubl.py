@@ -36,11 +36,11 @@ class TestBaseWamas(TransactionCase):
             os.remove(tmpfile_path)
 
     def test_convert_wamas2ubl_weakq_weapq(self):
-        path = "base_wamas_ubl/tests/files/WAMAS2XML-SAMPLE_WEAKQ_WEAPQ.txt"
-        path_to_compare = "base_wamas_ubl/tests/files/WAMAS2XML-SAMPLE_WEAKQ_WEAPQ-DESPATCH_ADVICE.xml"
+        path = "base_wamas_ubl/tests/files/WAMAS2UBL-SAMPLE_WEAKQ_WEAPQ.txt"
+        path_to_compare = "base_wamas_ubl/tests/files/WAMAS2UBL-SAMPLE_WEAKQ_WEAPQ-DESPATCH_ADVICE.xml"
         self._convert_wamas2ubl(path, path_to_compare)
 
     def test_convert_wamas2ubl_watekq_watepq(self):
-        path = "base_wamas_ubl/tests/files/WAMAS2XML-SAMPLE_WATEKQ_WATEPQ.txt"
-        path_to_compare = "base_wamas_ubl/tests/files/WAMAS2XML-SAMPLE_WATEKQ_WATEPQ-DESPATCH_ADVICE.xml"
+        path = "base_wamas_ubl/tests/files/WAMAS2UBL-SAMPLE_WATEKQ_WATEPQ.txt"
+        path_to_compare = "base_wamas_ubl/tests/files/WAMAS2UBL-SAMPLE_WATEKQ_WATEPQ-DESPATCH_ADVICE.xml"
         self._convert_wamas2ubl(path, path_to_compare)
