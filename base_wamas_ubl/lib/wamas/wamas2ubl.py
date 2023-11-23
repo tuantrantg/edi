@@ -2,17 +2,18 @@
 
 import codecs
 import getopt
+import os
 from pprint import pprint
 import re
 import struct
 import sys
 
-import miniqweb
+from . import miniqweb
 
 from datetime import datetime
 from dateutil.parser import parse
 
-from wamas_grammar import auskq, weakq, weapq, watekq, watepq  # noqa: F401
+from .wamas_grammar import auskq, weakq, weapq, watekq, watepq  # noqa: F401
 
 telegram_header_grammar = {
     "Telheader_Quelle": 10,
@@ -100,7 +101,7 @@ def dict2ubl(template, data):
 
 def wamas2ubl(infile):
     data = wamas2dict(infile)
-    pprint(data)
+    # pprint(data)
     top_keys = list(data.keys())
     if top_keys == ["WEAKQ", "WEAPQ"]:
         template_type = "reception"
@@ -110,9 +111,13 @@ def wamas2ubl(infile):
         raise Exception(
             "Could not match input wamas file with a corresponding template type: %s"
             % top_keys)
-    ubl_template = open(f"ubl_template/{template_type}.xml").read()
+    absolute_path = os.path.dirname(__file__)
+    relative_path = f"ubl_template/{template_type}.xml"
+    tmpl_full_path = os.path.join(absolute_path, relative_path)
+    ubl_template = open(tmpl_full_path).read()
     ubl = dict2ubl(ubl_template, data)
-    print(ubl)
+    # print(ubl)
+    return ubl
 
 
 def usage(argv):
