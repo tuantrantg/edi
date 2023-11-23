@@ -50,6 +50,7 @@ MAPPING_WAMAS_TO_UBL = {
         'LITRE': 'LTR',  # litre
         'PET': 'XBO',    # glass bottle
         'TETRA': 'X4B',   # tetra pack
+        '': False        # undefined,
     })
 
 }
