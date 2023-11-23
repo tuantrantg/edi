@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <DespatchAdvice xmlns:cbc="urn:oasis:names:specification:ubl:schema:xsd:CommonBasicComponents-2" xmlns:cac="urn:oasis:names:specification:ubl:schema:xsd:CommonAggregateComponents-2" xmlns="urn:oasis:names:specification:ubl:schema:xsd:DespatchAdvice-2">
 	<cbc:UBLVersionID>2.2</cbc:UBLVersionID>
-	<cbc:ID><t t-raw="record.WATEKQ[0].IvTourp_TOUR_TourId_IntLfdNr"/></cbc:ID>
+	<cbc:ID><t t-raw="record.lines[0].shipment.IvTourp_TOUR_TourId_IntLfdNr"/></cbc:ID>
 	<cbc:IssueDate></cbc:IssueDate>
 	<cac:OrderReference>
-		<cbc:ID><t t-raw="record.WATEPQ[0].IvAusp_UrAusId_AusNr"/></cbc:ID>
+		<cbc:ID><t t-raw="record.IvAusk_AusId_AusNr"/></cbc:ID>
 	</cac:OrderReference>
 	<cac:DespatchSupplierParty>
 		<cbc:CustomerAssignedAccountID></cbc:CustomerAssignedAccountID>
@@ -64,7 +64,7 @@
 		</cac:Party>
 	</cac:DeliveryCustomerParty>
 	<cac:Shipment>
-		<cbc:ID><t t-raw="record.WATEKQ[0].IvTourp_TOUR_TourId_TourNr"/></cbc:ID>
+		<cbc:ID><t t-raw="record.lines[0].shipment.IvTourp_TOUR_TourId_TourNr"/></cbc:ID>
 		<cac:Delivery>
 			<cac:EstimatedDeliveryPeriod>
 				<cbc:EndDate></cbc:EndDate>
@@ -72,20 +72,20 @@
 			</cac:EstimatedDeliveryPeriod>
 		</cac:Delivery>
 	</cac:Shipment>
-	<cac:DespatchLine t-foreach="record.WATEPQ" t-as="rec">
+	<cac:DespatchLine t-foreach="record.lines" t-as="line">
 		<cac:Shipment>
 			<cac:TransportHandlingUnit>
 				<cac:ActualPackage>
-					<cbc:ID><t t-raw="record.WATEKQ[0].IvTek_TeId"/></cbc:ID>
+					<cbc:ID><t t-raw="line.shipment.IvTek_TeId"/></cbc:ID>
 				</cac:ActualPackage>
-				<cbc:TransportHandlingUnitTypeCode><t t-raw="record.WATEKQ[0].IvTts_THM_ThmId"/></cbc:TransportHandlingUnitTypeCode>
+				<cbc:TransportHandlingUnitTypeCode><t t-raw="line.shipment.IvTts_THM_ThmId"/></cbc:TransportHandlingUnitTypeCode>
 			</cac:TransportHandlingUnit>
 			<cac:GrossWeightMeasure>
-				<cbc:Measure><t t-raw="record.WATEKQ[0].IvTek_GesGew"/></cbc:Measure>
+				<cbc:Measure><t t-raw="line.shipment.IvTek_GesGew"/></cbc:Measure>
 			</cac:GrossWeightMeasure>
 		</cac:Shipment>
 		<cbc:ID></cbc:ID>
-        <cbc:DeliveredQuantity t-att-unitCode="MAPPING['unitCode'][rec.IvArt_HOSTUNITS_HostEinh] or MAPPING['unitCode'][rec.IvArt_Bestand_Einheit]"><t t-raw="rec.Mngs_Mng"/></cbc:DeliveredQuantity>
+        <cbc:DeliveredQuantity t-att-unitCode="MAPPING['unitCode'][line.IvArt_HOSTUNITS_HostEinh] or MAPPING['unitCode'][line.IvArt_Bestand_Einheit]"><t t-raw="line.Mngs_Mng"/></cbc:DeliveredQuantity>
 		<cac:OrderLineReference>
 			<cbc:LineID></cbc:LineID>
 		</cac:OrderLineReference>
@@ -94,7 +94,7 @@
 				<cbc:ID></cbc:ID>
 			</cac:BuyersItemIdentification>
 			<cac:SellersItemIdentification>
-				<cbc:ID><t t-raw="rec.IvArt_AId_ArtNr"/></cbc:ID>
+				<cbc:ID><t t-raw="line.IvArt_AId_ArtNr"/></cbc:ID>
 			</cac:SellersItemIdentification>
 		</cac:Item>
 	</cac:DespatchLine>
