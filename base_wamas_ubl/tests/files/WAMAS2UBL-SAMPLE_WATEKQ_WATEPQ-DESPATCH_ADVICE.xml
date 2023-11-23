@@ -84,7 +84,7 @@
 			</cac:GrossWeightMeasure>
 		</cac:Shipment>
 		<cbc:ID/>
-        <cbc:DeliveredQuantity unitCode="TETRA">000000007000</cbc:DeliveredQuantity>
+        <cbc:DeliveredQuantity unitCode="X4B">000000007000</cbc:DeliveredQuantity>
 		<cac:OrderLineReference>
 			<cbc:LineID/>
 		</cac:OrderLineReference>
@@ -109,7 +109,7 @@
 			</cac:GrossWeightMeasure>
 		</cac:Shipment>
 		<cbc:ID/>
-        <cbc:DeliveredQuantity unitCode="TETRA">000000008000</cbc:DeliveredQuantity>
+        <cbc:DeliveredQuantity unitCode="X4B">000000008000</cbc:DeliveredQuantity>
 		<cac:OrderLineReference>
 			<cbc:LineID/>
 		</cac:OrderLineReference>
