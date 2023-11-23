@@ -8,6 +8,7 @@ import os
 import tempfile
 
 from odoo.tests.common import TransactionCase
+from odoo.addons.account.tests.common import AccountTestInvoicingCommon
 from odoo.tools import file_open, file_path
 
 
@@ -16,31 +17,30 @@ class TestBaseWamas(TransactionCase):
     def setUpClass(cls):
         super().setUpClass()
         cls.base_wamas_ubl = cls.env["base.wamas.ubl"]
+        cls.assertXmlTreeEqual = AccountTestInvoicingCommon.assertXmlTreeEqual
+        cls.get_xml_tree_from_string = AccountTestInvoicingCommon.get_xml_tree_from_string
+        cls._turn_node_as_dict_hierarchy = AccountTestInvoicingCommon._turn_node_as_dict_hierarchy
 
-    def _convert_wamas2ubl(self, path, path_to_compare):
-        str_file = file_open(path, "r").read()
+    def _convert_wamas2ubl(self, input_file, expected_output_files):
+        input = file_open(input_file, "r").read()
+        outputs = self.base_wamas_ubl.parse_wamas2ubl(input)
 
-        res = self.base_wamas_ubl.parse_wamas2ubl(str_file)
+        for i, output in enumerate(outputs):
+            output_tree = self.get_xml_tree_from_string(output)
+            from lxml.etree import tostring
+            print(output)
+            expected_output = file_open(expected_output_files[i], "r").read()
+            expected_output_tree = self.get_xml_tree_from_string(expected_output)
+            self.assertXmlTreeEqual(output_tree, expected_output_tree)
 
-        if res:
-            tmpfile_path = tempfile.mkstemp(suffix=".xml")[1]
+    # picking
+    def test_convert_wamas2ubl_auskq_watekq_watepq(self):
+        input_file = "base_wamas_ubl/tests/files/WAMAS2UBL-SAMPLE_AUSKQ_WATEKQ_WATEPQ.txt"
+        expected_output = "base_wamas_ubl/tests/files/WAMAS2UBL-SAMPLE_AUSKQ_WATEKQ_WATEPQ-DESPATCH_ADVICE.xml"
+        self._convert_wamas2ubl(input_file, [expected_output])
 
-            open(tmpfile_path, "w").close()
-            with open(tmpfile_path, "w") as f2:
-                f2.write(res)
-
-        # Compare 2 files
-        self.assertTrue(filecmp.cmp(file_path(path_to_compare), tmpfile_path))
-
-        if os.path.exists(tmpfile_path):
-            os.remove(tmpfile_path)
-
+    # reception
     def test_convert_wamas2ubl_weakq_weapq(self):
-        path = "base_wamas_ubl/tests/files/WAMAS2UBL-SAMPLE_WEAKQ_WEAPQ.txt"
-        path_to_compare = "base_wamas_ubl/tests/files/WAMAS2UBL-SAMPLE_WEAKQ_WEAPQ-DESPATCH_ADVICE.xml"
-        self._convert_wamas2ubl(path, path_to_compare)
-
-    def test_convert_wamas2ubl_watekq_watepq(self):
-        path = "base_wamas_ubl/tests/files/WAMAS2UBL-SAMPLE_WATEKQ_WATEPQ.txt"
-        path_to_compare = "base_wamas_ubl/tests/files/WAMAS2UBL-SAMPLE_WATEKQ_WATEPQ-DESPATCH_ADVICE.xml"
-        self._convert_wamas2ubl(path, path_to_compare)
+        input_file = "base_wamas_ubl/tests/files/WAMAS2UBL-SAMPLE_WEAKQ_WEAPQ.txt"
+        expected_output = "base_wamas_ubl/tests/files/WAMAS2UBL-SAMPLE_WEAKQ_WEAPQ-DESPATCH_ADVICE.xml"
+        self._convert_wamas2ubl(input_file, [expected_output])

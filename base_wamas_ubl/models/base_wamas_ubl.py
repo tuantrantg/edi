@@ -9,7 +9,7 @@ from ..lib.wamas.wamas2ubl import wamas2dict, dict2ubl, wamas2ubl
 
 class BaseWamasUbl(models.AbstractModel):
     _name = "base.wamas.ubl"
-    _description = "Common methods to generate and parse between WAMAS and UBL XML files"
+    _description = "Methods to convert WAMAS to UBL XML files and vice versa"
 
     @api.model
     def parse_wamas2dict(self, str_file):
