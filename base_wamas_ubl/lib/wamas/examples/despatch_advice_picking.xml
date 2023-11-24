@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<DespatchAdvice xmlns:cbc="urn:oasis:names:specification:ubl:schema:xsd:CommonBasicComponents-2" xmlns:cac="urn:oasis:names:specification:ubl:schema:xsd:CommonAggregateComponents-2" xmlns="urn:oasis:names:specification:ubl:schema:xsd:DespatchAdvice-2">
+	<cbc:UBLVersionID>2.2</cbc:UBLVersionID>
+	<cbc:ID>1673980/1700802</cbc:ID>
+	<cbc:IssueDate>2023-04-30</cbc:IssueDate>
+	<cac:OrderReference>
+		<cbc:ID>1700802</cbc:ID>
+	</cac:OrderReference>
+	<cac:DespatchSupplierParty>
+		<cac:Party>
+			<cac:PartyName>
+				<cbc:Name></cbc:Name>
+			</cac:PartyName>
+			<cac:PostalAddress>
+				<cbc:StreetName></cbc:StreetName>
+				<cbc:CityName></cbc:CityName>
+				<cbc:PostalZone></cbc:PostalZone>
+				<cac:Country>
+					<cbc:IdentificationCode></cbc:IdentificationCode>
+				</cac:Country>
+			</cac:PostalAddress>
+			<cac:PartyTaxScheme>
+				<cbc:CompanyID></cbc:CompanyID>
+				<cac:TaxScheme>
+					<cbc:ID></cbc:ID>
+					<cbc:TaxTypeCode></cbc:TaxTypeCode>
+				</cac:TaxScheme>
+			</cac:PartyTaxScheme>
+			<cac:Contact>
+				<cbc:Name></cbc:Name>
+				<cbc:Telephone></cbc:Telephone>
+				<cbc:ElectronicMail></cbc:ElectronicMail>
+			</cac:Contact>
+		</cac:Party>
+	</cac:DespatchSupplierParty>
+	<cac:DeliveryCustomerParty>
+		<cac:Party>
+			<cac:PartyName>
+				<cbc:Name>Arveco Sàrl</cbc:Name>
+			</cac:PartyName>
+			<cac:PostalAddress>
+				<cbc:StreetName>Route de Lausanne 250</cbc:StreetName>
+				<cbc:CityName>Chambésy</cbc:CityName>
+				<cbc:PostalZone>1292</cbc:PostalZone>
+				<cbc:CountrySubentity>GENEVA</cbc:CountrySubentity>
+				<cac:Country>
+					<cbc:IdentificationCode>CH</cbc:IdentificationCode>
+				</cac:Country>
+			</cac:PostalAddress>
+			<cac:PartyTaxScheme>
+				<cbc:CompanyID></cbc:CompanyID>
+				<cac:TaxScheme>
+					<cbc:ID></cbc:ID>
+					<cbc:TaxTypeCode></cbc:TaxTypeCode>
+				</cac:TaxScheme>
+			</cac:PartyTaxScheme>
+			<cac:Contact>
+				<cbc:Name>Verzella Ernesto</cbc:Name>
+				<cbc:Telephone>022 758 17 41</cbc:Telephone>
+				<cbc:Telefax>022 758 27 71</cbc:Telefax>
+				<cbc:ElectronicMail>station132@agipmail.ch</cbc:ElectronicMail>
+			</cac:Contact>
+		</cac:Party>
+	</cac:DeliveryCustomerParty>
+	<cac:Shipment>
+		<cbc:ID>GE 2/120185</cbc:ID>
+		<cac:Delivery>
+			<cac:EstimatedDeliveryPeriod>
+				<cbc:EndDate>2023-04-13</cbc:EndDate>
+				<cbc:EndTime>11:00:00</cbc:EndTime>
+			</cac:EstimatedDeliveryPeriod>
+			<cac:Despatch>
+				<cac:DespatchLocation>
+					<cbc:ID>Quai-22</cbc:ID>
+				</cac:DespatchLocation>
+			</cac:Despatch>
+		</cac:Delivery>
+	</cac:Shipment>
+	<cac:DespatchLine>
+		<cbc:ID>10001</cbc:ID>
+		<cbc:DeliveredQuantity unitCode="PET">1500</cbc:DeliveredQuantity>
+		<cac:OrderLineReference>
+			<cbc:LineID>000011</cbc:LineID>
+		</cac:OrderLineReference>
+		<cac:Item>
+			<cac:SellersItemIdentification>
+				<cbc:ID>7076</cbc:ID>
+			</cac:SellersItemIdentification>
+		</cac:Item>
+	</cac:DespatchLine>
+</DespatchAdvice>

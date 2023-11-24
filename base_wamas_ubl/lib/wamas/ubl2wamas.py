@@ -9,7 +9,7 @@ from pprint import pprint
 import sys
 import xmltodict
 
-from wamas_grammar import weak, weap  # noqa: F401
+from wamas_grammar import weak, weap, ausk, ausp  # noqa: F401
 
 
 def _set_string(val, length, dp):
@@ -21,7 +21,7 @@ def _set_string_int(val, length, dp):
 
 
 def _set_string_float(val, length, dp):
-    res = str(float(val))
+    res = str(float(val or 0))
 
     # Check if it is int / float or not
     if not res.replace(".", "", 1).isdigit():
@@ -98,7 +98,7 @@ def ubl2list_of_str_wamas(infile, telegram_type):
 
     dict_telegram_type_loop = {
         "WEAP": "DespatchAdvice.cac:DespatchLine",
-        "AUSK": "DespatchAdvice.cac:DespatchLine",
+        "AUSP": "DespatchAdvice.cac:DespatchLine",
     }
 
     idx = 0
@@ -106,7 +106,7 @@ def ubl2list_of_str_wamas(infile, telegram_type):
         grammar = eval(telegram_type.lower()).grammar
 
         loop_element = dict_telegram_type_loop.get(telegram_type, False)
-        len_loop = loop_element and len(my_dict[loop_element]) or 1
+        len_loop = loop_element and isinstance(my_dict[loop_element], list) and len(my_dict[loop_element]) or 1
 
         for idx_loop in range(len_loop):
             idx += 1
@@ -121,8 +121,25 @@ def ubl2list_of_str_wamas(infile, telegram_type):
                 df_func = grammar[_key]["df_func"]
 
                 if ubl_path:
-                    ubl_path = '%s' in ubl_path and ubl_path % str(idx_loop) or ubl_path
-                    val = my_dict[ubl_path]
+                    if len_loop > 1:
+                        ubl_path = "%s" in ubl_path and ubl_path % str(idx_loop) or ubl_path
+                    else:
+                        ubl_path = "%s" in ubl_path and ubl_path.replace(".%s", "") or ubl_path
+
+                    if isinstance(ubl_path, list):
+                        lst_val = []
+                        for _item in ubl_path:
+                            lst_val.append(my_dict[_item])
+                        if lst_val:
+                            val = " ".join(lst_val)
+                    elif isinstance(ubl_path, dict):
+                        for _key in ubl_path:
+                            if my_dict.get(_key, False):
+                                val = my_dict[ubl_path[_key]]
+                    elif isinstance(ubl_path, str):
+                        val = my_dict[ubl_path]
+                    else:
+                        val = ""
                 elif df_val:
                     val = df_val
                 elif df_func:
@@ -143,7 +160,7 @@ def ubl2wamas(infile, telegram_type):
     tmpfile_path_txt = tempfile.mkstemp(suffix=".txt")[1]
     with open(tmpfile_path_txt, "w") as f:
         f.writelines(wamas)
-    print('############# tmpfile_path_txt ::', tmpfile_path_txt)
+    print("############# tmpfile_path_txt ::", tmpfile_path_txt)
 
 
 def usage(argv):
@@ -158,7 +175,7 @@ def main(argv):
             usage(argv)
             sys.exit()
         elif opt in ("-i", "--ifile"):
-            infile = codecs.open(arg, 'r', 'iso-8859-15').read()
+            infile = codecs.open(arg, "r", "iso-8859-15").read()
         elif opt in ("-t", "--teletype"):
             telegram_type = arg
     if not infile:
