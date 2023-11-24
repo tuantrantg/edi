@@ -1,1 +1,1 @@
-from . import weakq, weapq, watekq, watepq
+from . import weakq, weapq, watekq, watepq, weak, weap
