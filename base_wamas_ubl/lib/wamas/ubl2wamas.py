@@ -79,7 +79,7 @@ def set_value_to_string(val, ttype, length, dp):
 
 
 def _get_sequence_number(val=0):
-    return val + 1
+    return val
 
 
 def _get_current_datetime(val=0):
@@ -126,7 +126,7 @@ def ubl2list_of_str_wamas(infile, telegram_type):
                 elif df_val:
                     val = df_val
                 elif df_func:
-                    val = eval(df_func)()
+                    val = eval(df_func)(idx)
 
                 line += set_value_to_string(val, ttype, length, dp)
 
