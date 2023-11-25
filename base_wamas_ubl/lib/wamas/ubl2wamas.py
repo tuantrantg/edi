@@ -1,6 +1,5 @@
 #!/usr/bin/python3
 
-import codecs
 from dateutil.parser import parse
 from datetime import date, datetime
 from dotty_dict import Dotty
@@ -9,6 +8,13 @@ from pprint import pprint
 import sys
 import xmltodict
 
+import logging
+_logger = logging.getLogger("wamas2ubl")
+
+#from utils import *
+#from wamas_grammar import weak, weap, ausk, ausp  # noqa: F401
+
+from utils import *
 from wamas_grammar import weak, weap, ausk, ausp  # noqa: F401
 
 
@@ -153,14 +159,12 @@ def ubl2list_of_str_wamas(infile, telegram_type):
     return res
 
 
-def ubl2wamas(infile, telegram_type):
+def ubl2wamas(infile, telegram_type, verbose=False):
     lst_of_str_wamas = ubl2list_of_str_wamas(infile, telegram_type)
     wamas = "\n".join(lst_of_str_wamas)
-    import tempfile
-    tmpfile_path_txt = tempfile.mkstemp(suffix=".txt")[1]
-    with open(tmpfile_path_txt, "w") as f:
-        f.writelines(wamas)
-    print("############# tmpfile_path_txt ::", tmpfile_path_txt)
+    if verbose:
+        print(wamas)
+    return wamas
 
 
 def usage(argv):
@@ -169,19 +173,23 @@ def usage(argv):
 
 def main(argv):
     infile = ""
-    opts, args = getopt.getopt(argv[1:], "hi:t:", ["ifile=", "teletype="])
+    verbose = False
+    opts, args = getopt.getopt(argv[1:], "hi:t:v", ["ifile=", "teletype=", "verbose"])
     for opt, arg in opts:
         if opt == "-h":
             usage(argv)
             sys.exit()
         elif opt in ("-i", "--ifile"):
-            infile = codecs.open(arg, "r", "iso-8859-15").read()
+            infile = file_open(arg).read()
+        elif opt in ("-v", "--verbose"):
+            verbose = True
+            logging.basicConfig(level=logging.DEBUG)
         elif opt in ("-t", "--teletype"):
             telegram_type = arg
     if not infile:
         usage(argv)
         sys.exit()
-    ubl2wamas(infile, telegram_type)
+    ubl2wamas(infile, telegram_type, verbose)
 
 
 if __name__ == "__main__":
