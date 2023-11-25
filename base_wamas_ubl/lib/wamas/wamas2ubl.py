@@ -13,6 +13,7 @@ from . import miniqweb
 from .utils import *
 from .wamas_grammar import auskq, weakq, weapq, watekq, watepq  # noqa: F401
 
+# TODO: how to manage imports for both module and cli contexts?
 #import miniqweb
 #from utils import *
 #from .wamas_grammar import auskq, weakq, weapq, watekq, watepq  # noqa: F401
