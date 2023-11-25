@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <DespatchAdvice xmlns:cbc="urn:oasis:names:specification:ubl:schema:xsd:CommonBasicComponents-2" xmlns:cac="urn:oasis:names:specification:ubl:schema:xsd:CommonAggregateComponents-2" xmlns="urn:oasis:names:specification:ubl:schema:xsd:DespatchAdvice-2">
 	<cbc:UBLVersionID>2.2</cbc:UBLVersionID>
-	<cbc:ID><t t-raw="record.lines[0].shipment.IvTourp_TOUR_TourId_IntLfdNr"/></cbc:ID>
+	<cbc:ID><t t-raw="record.IvAusk_RahmenTourId_TourNr"/></cbc:ID>
 	<cbc:IssueDate></cbc:IssueDate>
 	<cac:OrderReference>
 		<cbc:ID><t t-raw="record.IvAusk_AusId_AusNr"/></cbc:ID>
@@ -36,6 +36,9 @@
 	</cac:DespatchSupplierParty>
 	<cac:DeliveryCustomerParty>
 		<cac:Party>
+            <cac:PartyIdentification>
+                <cbc:ID><t t-raw="record.IvAusk_KST_KuNr"/></cbc:ID>
+            </cac:PartyIdentification>
 			<cac:PartyName>
 				<cbc:Name></cbc:Name>
 			</cac:PartyName>
@@ -63,25 +66,16 @@
 			</cac:Contact>
 		</cac:Party>
 	</cac:DeliveryCustomerParty>
-	<cac:Shipment>
-		<cbc:ID><t t-raw="record.lines[0].shipment.IvTourp_TOUR_TourId_TourNr"/></cbc:ID>
-		<cac:Delivery>
-			<cac:EstimatedDeliveryPeriod>
-				<cbc:EndDate></cbc:EndDate>
-				<cbc:EndTime></cbc:EndTime>
-			</cac:EstimatedDeliveryPeriod>
-		</cac:Delivery>
-	</cac:Shipment>
 	<cac:DespatchLine t-foreach="record.lines" t-as="line">
 		<cac:Shipment>
 			<cac:TransportHandlingUnit>
 				<cac:ActualPackage>
-					<cbc:ID><t t-raw="line.shipment.IvTek_TeId"/></cbc:ID>
+					<cbc:ID><t t-raw="line.package.IvTek_TeId"/></cbc:ID>
 				</cac:ActualPackage>
-				<cbc:TransportHandlingUnitTypeCode><t t-raw="line.shipment.IvTts_THM_ThmId"/></cbc:TransportHandlingUnitTypeCode>
+				<cbc:TransportHandlingUnitTypeCode><t t-raw="line.package.IvTts_THM_ThmId"/></cbc:TransportHandlingUnitTypeCode>
 			</cac:TransportHandlingUnit>
 			<cac:GrossWeightMeasure>
-				<cbc:Measure><t t-raw="line.shipment.IvTek_GesGew"/></cbc:Measure>
+				<cbc:Measure><t t-raw="line.package.IvTek_GesGew"/></cbc:Measure>
 			</cac:GrossWeightMeasure>
 		</cac:Shipment>
 		<cbc:ID></cbc:ID>
