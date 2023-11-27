@@ -178,6 +178,7 @@ def _prepare_pickings(data):
         order_id = order["IvAusk_AusId_AusNr"]
         if order_id not in pickings:
             order["lines"] = []
+            order["packages"] = set()
             pickings[order_id] = order
         else:
             _logger.debug(
@@ -205,6 +206,7 @@ def _prepare_pickings(data):
         package_id = line["IvTep_TeId"]
         if package_id in packages:
             line["package"] = package
+            pickings[order_id]["packages"].add(package_id)
         else:
             _logger.debug(
                 "Found WATEPQ (line) record with unknown WATEKQ (package), ignoring: %s",
@@ -222,6 +224,7 @@ def wamas2ubl(infile, verbose=False):
 
     # 2) analyze/transform wamas file content
     top_keys = list(data.keys())
+    top_keys.sort()
     if top_keys == ["WEAKQ", "WEAPQ"]:
         template_type = "reception"
     elif top_keys == ["AUSKQ", "WATEKQ", "WATEPQ"]:
@@ -229,7 +232,10 @@ def wamas2ubl(infile, verbose=False):
         pickings = _prepare_pickings(data)
         if verbose:
             _logger.debug("Number of pickings: %d", len(pickings))
-            pprint(pickings)
+            for order_id, picking in pickings.items():
+                _logger.debug("Order ID: %s", order_id)
+                _logger.debug("Number of packages: %s", len(pickings[order_id]["packages"]))
+                pprint(picking)
     else:
         raise Exception(
             "Could not match input wamas file with a corresponding template type: %s"

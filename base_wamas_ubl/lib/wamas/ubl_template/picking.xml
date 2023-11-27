@@ -66,6 +66,15 @@
 			</cac:Contact>
 		</cac:Party>
 	</cac:DeliveryCustomerParty>
+	<cac:Shipment>
+		<cbc:ID><t t-raw="record.IvAusk_RahmenTourId_TourNr"/></cbc:ID>
+		<cac:Delivery>
+			<cac:EstimatedDeliveryPeriod>
+				<cbc:EndDate/>
+				<cbc:EndTime/>
+			</cac:EstimatedDeliveryPeriod>
+		</cac:Delivery>
+	</cac:Shipment>
 	<cac:DespatchLine t-foreach="record.lines" t-as="line">
 		<cac:Shipment>
 			<cac:TransportHandlingUnit>
