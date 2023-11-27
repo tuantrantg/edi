@@ -65,6 +65,15 @@
 			</cac:Contact>
 		</cac:Party>
 	</cac:DeliveryCustomerParty>
+	<cac:Shipment>
+		<cbc:ID>GE 2/120185</cbc:ID>
+		<cac:Delivery>
+			<cac:EstimatedDeliveryPeriod>
+				<cbc:EndDate/>
+				<cbc:EndTime/>
+			</cac:EstimatedDeliveryPeriod>
+		</cac:Delivery>
+	</cac:Shipment>
 	<cac:DespatchLine>
 		<cac:Shipment>
 			<cac:TransportHandlingUnit>
