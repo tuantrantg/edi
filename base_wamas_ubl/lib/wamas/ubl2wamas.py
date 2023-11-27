@@ -4,18 +4,15 @@ from dateutil.parser import parse
 from datetime import date, datetime
 from dotty_dict import Dotty
 import getopt
-from pprint import pprint
 import sys
 import xmltodict
 
-import logging
-_logger = logging.getLogger("wamas2ubl")
-
-#from utils import *
-#from wamas_grammar import weak, weap, ausk, ausp  # noqa: F401
-
-from utils import *
-from wamas_grammar import weak, weap, ausk, ausp  # noqa: F401
+try:
+    from .utils import *
+    from .wamas_grammar import weak, weap, ausk, ausp  # noqa: F401
+except ImportError:
+    from utils import *
+    from wamas_grammar import weak, weap, ausk, ausp  # noqa: F401
 
 
 def _set_string(val, length, dp):

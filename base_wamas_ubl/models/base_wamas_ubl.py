@@ -5,6 +5,7 @@
 from odoo import api, models
 
 from ..lib.wamas.wamas2ubl import wamas2dict, dict2ubl, wamas2ubl
+from ..lib.wamas.ubl2wamas import ubl2wamas
 
 
 class BaseWamasUbl(models.AbstractModel):
@@ -22,3 +23,7 @@ class BaseWamasUbl(models.AbstractModel):
     @api.model
     def parse_wamas2ubl(self, str_file):
         return wamas2ubl(str_file)
+
+    @api.model
+    def parse_ubl2wamas(self, str_file, telegram_type):
+        return ubl2wamas(str_file, telegram_type)
