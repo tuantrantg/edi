@@ -1,0 +1,135 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<DespatchAdvice
+    xmlns:cbc="urn:oasis:names:specification:ubl:schema:xsd:CommonBasicComponents-2"
+    xmlns:cac="urn:oasis:names:specification:ubl:schema:xsd:CommonAggregateComponents-2"
+    xmlns="urn:oasis:names:specification:ubl:schema:xsd:DespatchAdvice-2"
+>
+    <cbc:UBLVersionID>2.2</cbc:UBLVersionID>
+    <cbc:ID />
+    <cbc:IssueDate><t t-raw="get_current_date()" /></cbc:IssueDate>
+    <cac:OrderReference>
+        <cbc:ID><t t-raw="record.lines[0].IvWevp_WEAP_WeaId_WeaNr" /></cbc:ID>
+        <cbc:IssueDate><t t-raw="get_current_date()" /></cbc:IssueDate>
+    </cac:OrderReference>
+    <cac:DespatchSupplierParty>
+        <cbc:CustomerAssignedAccountID><t
+                t-raw="record.LST_LiefNr"
+            /></cbc:CustomerAssignedAccountID>
+        <cac:Party>
+            <cac:PartyName>
+                <cbc:Name><t
+                        t-raw="extra_data['DespatchSupplierParty']['PartyName']"
+                    /></cbc:Name>
+            </cac:PartyName>
+            <cac:PostalAddress>
+                <cbc:StreetName><t
+                        t-raw="extra_data['DespatchSupplierParty']['StreetName']"
+                    /></cbc:StreetName>
+                <cbc:CityName><t
+                        t-raw="extra_data['DespatchSupplierParty']['CityName']"
+                    /></cbc:CityName>
+                <cbc:PostalZone><t
+                        t-raw="extra_data['DespatchSupplierParty']['PostalZone']"
+                    /></cbc:PostalZone>
+                <cac:Country>
+                    <cbc:IdentificationCode><t
+                            t-raw="extra_data['DespatchSupplierParty']['Country.IdentificationCode']"
+                        /></cbc:IdentificationCode>
+                </cac:Country>
+            </cac:PostalAddress>
+            <cac:Contact>
+                <cbc:Telephone><t
+                        t-raw="extra_data['DespatchSupplierParty']['Contact.Name']"
+                    /></cbc:Telephone>
+                <cbc:Telefax><t
+                        t-raw="extra_data['DespatchSupplierParty']['Contact.Telefax']"
+                    /></cbc:Telefax>
+                <cbc:ElectronicMail><t
+                        t-raw="extra_data['DespatchSupplierParty']['Contact.ElectronicMail']"
+                    /></cbc:ElectronicMail>
+            </cac:Contact>
+        </cac:Party>
+    </cac:DespatchSupplierParty>
+    <cac:DeliveryCustomerParty>
+        <cac:Party>
+            <cac:PartyName>
+                <cbc:Name><t
+                        t-raw="extra_data['DeliveryCustomerParty']['PartyName']"
+                    /></cbc:Name>
+            </cac:PartyName>
+            <cac:PostalAddress>
+                <cbc:StreetName><t
+                        t-raw="extra_data['DeliveryCustomerParty']['StreetName']"
+                    /></cbc:StreetName>
+                <cbc:CityName><t
+                        t-raw="extra_data['DeliveryCustomerParty']['CityName']"
+                    /></cbc:CityName>
+                <cbc:PostalZone><t
+                        t-raw="extra_data['DeliveryCustomerParty']['PostalZone']"
+                    /></cbc:PostalZone>
+                <cbc:CountrySubentity><t
+                        t-raw="extra_data['DeliveryCustomerParty']['CountrySubentity']"
+                    /></cbc:CountrySubentity>
+                <cac:Country>
+                    <cbc:IdentificationCode><t
+                            t-raw="extra_data['DeliveryCustomerParty']['Country.IdentificationCode']"
+                        /></cbc:IdentificationCode>
+                </cac:Country>
+            </cac:PostalAddress>
+            <cac:PartyTaxScheme>
+                <cbc:CompanyID><t
+                        t-raw="extra_data['DeliveryCustomerParty']['CompanyID']"
+                    /></cbc:CompanyID>
+                <cac:TaxScheme>
+                    <cbc:ID><t
+                            t-raw="extra_data['DeliveryCustomerParty']['TaxScheme.ID']"
+                        /></cbc:ID>
+                    <cbc:TaxTypeCode><t
+                            t-raw="extra_data['DeliveryCustomerParty']['TaxScheme.TaxTypeCode']"
+                        /></cbc:TaxTypeCode>
+                </cac:TaxScheme>
+            </cac:PartyTaxScheme>
+            <cac:Contact>
+                <cbc:Name><t
+                        t-raw="extra_data['DeliveryCustomerParty']['Contact.Name']"
+                    /></cbc:Name>
+                <cbc:Telephone><t
+                        t-raw="extra_data['DeliveryCustomerParty']['Contact.Telephone']"
+                    /></cbc:Telephone>
+                <cbc:Telefax><t
+                        t-raw="extra_data['DeliveryCustomerParty']['Contact.Telefax']"
+                    /></cbc:Telefax>
+                <cbc:ElectronicMail><t
+                        t-raw="extra_data['DeliveryCustomerParty']['Contact.ElectronicMail']"
+                    /></cbc:ElectronicMail>
+            </cac:Contact>
+        </cac:Party>
+    </cac:DeliveryCustomerParty>
+    <cac:Shipment>
+        <cbc:ID />
+        <cac:Delivery>
+            <cac:EstimatedDeliveryPeriod>
+                <cbc:EndDate><t
+                        t-raw="get_date(record.IvWevk_FertZeit)"
+                    /></cbc:EndDate>
+                <cbc:EndTime><t
+                        t-raw="get_time(record.IvWevk_FertZeit)"
+                    /></cbc:EndTime>
+            </cac:EstimatedDeliveryPeriod>
+        </cac:Delivery>
+    </cac:Shipment>
+    <cac:DespatchLine t-foreach="record.lines" t-as="line">
+        <cbc:ID><t t-raw="line.IvWeap_ExtRef" /></cbc:ID>
+        <cbc:DeliveredQuantity
+            t-att-unitCode="MAPPING['unitCode'][line.IvArt_HOSTUNITS_HostEinh] or MAPPING['unitCode'][line.IvArt_Bestand_Einheit]"
+        ><t t-raw="line.IvWevp_LiefMngs_Mng" /></cbc:DeliveredQuantity>
+        <cac:OrderLineReference>
+            <cbc:LineID><t t-raw="line_index + 1" /></cbc:LineID>
+        </cac:OrderLineReference>
+        <cac:Item>
+            <cac:BuyersItemIdentification>
+                <cbc:ID><t t-raw="line.IvWevp_MId_AId_ArtNr" /></cbc:ID>
+            </cac:BuyersItemIdentification>
+        </cac:Item>
+    </cac:DespatchLine>
+</DespatchAdvice>

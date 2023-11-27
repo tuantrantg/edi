@@ -1,0 +1,15 @@
+grammar = {
+    "IvWevk_WevId_Mand": 3,
+    "IvWevk_WevId_WevNr": 20,
+    "HostWeaKz": 5,
+    "IvWevk_LiefTerm": 14,
+    "IvWevk_LkwFahrer": 40,
+    "IvWevk_LkwKz": 10,
+    "IvWevk_EinfahrtZeit": 14,
+    "IvWevk_StartZeit": 14,
+    "IvWevk_FertZeit": 14,
+    "IvWevk_AnmZeit": 14,
+    "IvWevk_Info2Host": 77,
+    "LST_Mand": 3,
+    "LST_LiefNr": 13,
+}
