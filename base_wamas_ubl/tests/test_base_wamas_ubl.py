@@ -27,8 +27,8 @@ class TestBaseWamas(TransactionCase):
         return SequenceMatcher(a=s1, b=s2).ratio() > threshold
 
     def _convert_wamas2ubl(self, input_file, expected_output_files):
-        input = file_open(input_file, "r").read()
-        outputs = self.base_wamas_ubl.parse_wamas2ubl(input)
+        str_input = file_open(input_file, "r").read()
+        outputs = self.base_wamas_ubl.parse_wamas2ubl(str_input)
 
         for i, output in enumerate(outputs):
             output_tree = self.get_xml_tree_from_string(output)
@@ -37,8 +37,8 @@ class TestBaseWamas(TransactionCase):
             self.assertXmlTreeEqual(output_tree, expected_output_tree)
 
     def _convert_ubl2wamas(self, input_file, expected_output_file, telegram_type):
-        input = file_open(input_file, "r").read()
-        output = self.base_wamas_ubl.parse_ubl2wamas(input, telegram_type)
+        str_input = file_open(input_file, "r").read()
+        output = self.base_wamas_ubl.parse_ubl2wamas(str_input, telegram_type)
         expected_output = file_open(expected_output_file, "r").read()
         self.assertTrue(self._is_string_similar(output, expected_output))
 

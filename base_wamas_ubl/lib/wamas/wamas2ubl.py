@@ -11,12 +11,12 @@ _logger = logging.getLogger("wamas2ubl")
 
 # TODO: Find "clean" way to manage imports for both module & CLI contexts
 try:
-    from . import miniqweb
-    from .utils import *
+    from . import miniqweb  # noqa: F403
+    from .utils import *  # noqa: F403
     from .wamas_grammar import auskq, watekq, watepq, weakq, weapq  # noqa: F401
 except ImportError:
-    import miniqweb
-    from utils import *
+    import miniqweb  # noqa: F403
+    from utils import *  # noqa: F403
     from wamas_grammar import auskq, watekq, watepq, weakq, weapq  # noqa: F401
 
 ##
@@ -91,10 +91,11 @@ def fw2dict(line, grammar, telegram_type, verbose=False):
             _logger.debug("Length off by one only, fields not impacted, no fix needed.")
 
         elif telegram_type == "WATEPQ":
-            ## line_WATEPQ_-_weirdly_encoded_01.wamas
+            # line_WATEPQ_-_weirdly_encoded_01.wamas
             # - this case has a weird WATEPQ:IvTep_MId_Charge
             #   of incorrect size due to weirdly encoded chars inside:
-            #   b'6423033A\xc3\xa9\xc2\xb0\xc2\xb0\xc3\xaf\xc2\xbf\xc2\xbd\xc3\xaf\xc2\xbf\xc2\xbd370063 '
+            #   b'6423033A\xc3\xa9\xc2\xb0\xc2\xb0\xc3\xaf\xc2\xbf\xc2\xbd
+            #   \xc3\xaf\xc2\xbf\xc2\xbd370063 '
             #   33 chars instead of expected 20 (when file is decoded as iso-8859-1)
             # - we clean it from non ascii chars and fill it with space to fix length
             #   and avoid impact on other fields
@@ -145,7 +146,7 @@ def wamas2dict(infile, verbose=False):
             continue
         if telegram_type not in ("AUSKQ", "WEAKQ", "WEAPQ", "WATEKQ", "WATEPQ"):
             raise Exception("Invalid telegram type: %s" % telegram_type)
-        grammar = eval(telegram_type.lower()).grammar
+        grammar = eval(telegram_type.lower()).grammar  # pylint: disable=W0123
         body = fw2dict(line[header_len:], grammar, telegram_type)
         val = result.setdefault(telegram_type, [])
         val.append(body)
@@ -156,9 +157,9 @@ def dict2ubl(template, data, verbose=False):
     t = miniqweb.QWebXml(template)
     # Convert dict to object to use dotted notation in template
     globals_dict = {
-        "record": obj(data),
-        "get_date": get_date,
-        "get_time": get_time,
+        "record": obj(data),  # noqa: F405
+        "get_date": get_date,  # noqa: F405
+        "get_time": get_time,  # noqa: F405
         "MAPPING": MAPPING_WAMAS_TO_UBL,
     }
     xml = t.render(globals_dict)
@@ -237,7 +238,9 @@ def wamas2ubl(infile, verbose=False):
         )
 
     # 3) get template
-    ubl_template = file_open(file_path(f"ubl_template/{template_type}.xml")).read()
+    ubl_template = file_open(  # noqa: F405
+        file_path(f"ubl_template/{template_type}.xml")  # noqa: F405
+    ).read()
 
     # 4) output
     if template_type == "reception":
@@ -266,7 +269,7 @@ def main(argv):
             usage(argv)
             sys.exit()
         elif opt in ("-i", "--ifile"):
-            infile = file_open(arg).read()
+            infile = file_open(arg).read()  # noqa: F405
         elif opt in ("-v", "--verbose"):
             verbose = True
             logging.basicConfig(level=logging.DEBUG)

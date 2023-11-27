@@ -13,10 +13,10 @@ _logger = logging.getLogger("wamas2ubl")
 
 # TODO: Find "clean" way to manage imports for both module & CLI contexts
 try:
-    from .utils import *
+    from .utils import *  # noqa: F403
     from .wamas_grammar import ausk, ausp, weak, weap  # noqa: F401
 except ImportError:
-    from utils import *
+    from utils import *  # noqa: F403
     from wamas_grammar import ausk, ausp, weak, weap  # noqa: F401
 
 
@@ -100,7 +100,7 @@ def _get_current_datetime(val=0):
     return datetime.utcnow()
 
 
-def ubl2list_str(infile, telegram_type):
+def ubl2list(infile, telegram_type):
     res = []
 
     my_dict = Dotty(xmltodict.parse(infile))
@@ -117,7 +117,7 @@ def ubl2list_str(infile, telegram_type):
 
     idx = 0
     for telegram_type in lst_telegram_type:
-        grammar = eval(telegram_type.lower()).grammar
+        grammar = eval(str(telegram_type.lower())).grammar  # pylint: disable=W0123
 
         loop_element = dict_telegram_type_loop.get(telegram_type, False)
         len_loop = (
@@ -166,7 +166,7 @@ def ubl2list_str(infile, telegram_type):
                 elif df_val:
                     val = df_val
                 elif df_func:
-                    val = eval(df_func)(idx)
+                    val = eval(df_func)(idx)  # pylint: disable=W0123
 
                 line += set_value_to_string(val, ttype, length, dp)
 
@@ -177,7 +177,7 @@ def ubl2list_str(infile, telegram_type):
 
 
 def ubl2wamas(infile, telegram_type, verbose=False):
-    lst_of_str_wamas = ubl2list_str(infile, telegram_type)
+    lst_of_str_wamas = ubl2list(infile, telegram_type)
     wamas = "\n".join(lst_of_str_wamas)
     if verbose:
         _logger.debug(wamas)
@@ -197,7 +197,7 @@ def main(argv):
             usage(argv)
             sys.exit()
         elif opt in ("-i", "--ifile"):
-            infile = file_open(arg).read()
+            infile = file_open(arg).read()  # noqa: F405
         elif opt in ("-v", "--verbose"):
             verbose = True
             logging.basicConfig(level=logging.DEBUG)

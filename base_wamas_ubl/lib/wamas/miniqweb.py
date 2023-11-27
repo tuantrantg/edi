@@ -14,6 +14,7 @@ import xml.dom.minidom
 
 _logger = logging.getLogger("miniqweb")
 
+
 # ----------------------------------------------------------
 # Qweb Xml t-raw t-if t-foreach t-set t-trim
 # ----------------------------------------------------------
@@ -26,7 +27,7 @@ class QWebEval:
             return self.data[expr]
         r = None
         try:
-            r = eval(expr, self.data)
+            r = eval(expr, self.data)  # pylint: disable=W0123
         except NameError:
             _logger.debug("qweb: name error")
         except AttributeError:

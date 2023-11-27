@@ -27,10 +27,10 @@ class TestWamas2ubl(unittest.TestCase):
     )
 
     def testWamas2dict(self):
-        for input, expected_output in self.knownValuesLines:
-            # pprint(wamas2dict(input), open('tmp.dict', 'w'))
+        for str_input, expected_output in self.knownValuesLines:
+            # pprint(wamas2dict(str_input), open('tmp.dict', 'w'))
             output_prettified = io.StringIO()
-            pprint(wamas2dict(input), output_prettified)
+            pprint(wamas2dict(str_input), output_prettified)
             output_prettified = output_prettified.getvalue()
             self.assertEqual(output_prettified, expected_output)
 

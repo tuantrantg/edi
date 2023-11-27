@@ -16,6 +16,8 @@ exclude: |
   readme/.*\.(rst|md)$|
   # You don't usually want a bot to modify your legal texts
   (LICENSE.*|COPYING.*)
+  # Ignore the text files
+  /tests/.*\.(txt|xml)|
 default_language_version:
   python: python3
   node: "16.17.0"
