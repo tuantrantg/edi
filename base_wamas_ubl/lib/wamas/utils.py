@@ -1,6 +1,7 @@
 import codecs
 import os
 from datetime import datetime
+
 from dateutil.parser import parse
 
 
@@ -9,7 +10,7 @@ def file_path(path):
 
 
 def file_open(path):
-    return codecs.open(path, 'r', 'iso-8859-1')
+    return codecs.open(path, "r", "iso-8859-1")
 
 
 class obj:
@@ -24,12 +25,12 @@ class obj:
 def get_date(val):
     val = parse(val)
     if isinstance(val, datetime):
-        val = val.strftime('%Y-%m-%d')
+        val = val.strftime("%Y-%m-%d")
     return val
 
 
 def get_time(val):
     val = parse(val)
     if isinstance(val, datetime):
-        val = val.strftime('%H:%M:%S')
+        val = val.strftime("%H:%M:%S")
     return val

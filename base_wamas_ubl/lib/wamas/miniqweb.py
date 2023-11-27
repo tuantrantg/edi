@@ -8,9 +8,11 @@ License
 Public domain.
 """
 
+import logging
 import xml.dom
 import xml.dom.minidom
 
+_logger = logging.getLogger("miniqweb")
 
 # ----------------------------------------------------------
 # Qweb Xml t-raw t-if t-foreach t-set t-trim
@@ -26,11 +28,11 @@ class QWebEval:
         try:
             r = eval(expr, self.data)
         except NameError:
-            pass
+            _logger.debug("qweb: name error")
         except AttributeError:
-            pass
+            _logger.debug("qweb: attribute error")
         except Exception as e:
-            print("qweb: expression error '%s' " % expr, e)
+            _logger.debug("qweb: expression error '%s' " % expr, e)
         if "__builtins__" in self.data:
             del self.data["__builtins__"]
         return r
@@ -73,15 +75,15 @@ class QWebXml:
         self.node = xml.dom.Node
         self._t = {}
         self._render_tag = {}
-        prefix = 'render_tag_'
+        prefix = "render_tag_"
         for i in [j for j in dir(self) if j.startswith(prefix)]:
-            name = i[len(prefix) :].replace('_', '-')
+            name = i[len(prefix) :].replace("_", "-")
             self._render_tag[name] = getattr(self.__class__, i)
 
         self._render_att = {}
-        prefix = 'render_att_'
+        prefix = "render_att_"
         for i in [j for j in dir(self) if j.startswith(prefix)]:
-            name = i[len(prefix) :].replace('_', '-')
+            name = i[len(prefix) :].replace("_", "-")
             self._render_att[name] = getattr(self.__class__, i)
 
         if x is not None:
@@ -148,11 +150,11 @@ class QWebXml:
         inner = "".join(g_inner)
         if trim == 0:
             pass
-        elif trim == 'left':
+        elif trim == "left":
             inner = inner.lstrip()
-        elif trim == 'right':
+        elif trim == "right":
             inner = inner.rstrip()
-        elif trim == 'both':
+        elif trim == "both":
             inner = inner.strip()
         if name == "t":
             return inner
@@ -182,12 +184,12 @@ class QWebXml:
         expr = t_att["foreach"]
         enum = self.eval_object(expr, v)
         if enum is not None:
-            var = t_att.get('as', expr).replace('.', '_')
+            var = t_att.get("as", expr).replace(".", "_")
             d = v.copy()
             size = -1
             if isinstance(enum, (list, tuple)):
                 size = len(enum)
-            elif hasattr(enum, 'count'):
+            elif hasattr(enum, "count"):
                 size = enum.count()
             d["%s_size" % var] = size
             d["%s_all" % var] = enum
@@ -201,9 +203,9 @@ class QWebXml:
                 d["%s_odd" % var] = (index + 1) % 2
                 d["%s_last" % var] = index + 1 == size
                 if index % 2:
-                    d["%s_parity" % var] = 'odd'
+                    d["%s_parity" % var] = "odd"
                 else:
-                    d["%s_parity" % var] = 'even'
+                    d["%s_parity" % var] = "even"
                 if isinstance(i, dict):
                     d.update(i)
                 else:

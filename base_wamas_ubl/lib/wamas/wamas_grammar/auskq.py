@@ -10,5 +10,5 @@ grammar = {
     "IvAusk_FertZeit": 14,
     "IvAusk_RahmenTourId_TourNr": 20,
     "IvAusk_RahmenTourId_HostTourKz": 5,
-    "IvAusk_Info2Host": 77
+    "IvAusk_Info2Host": 77,
 }

@@ -1,37 +1,38 @@
 import io
-from pprint import pprint
 import unittest
+from pprint import pprint
 
-from wamas2ubl import *
+from wamas2ubl import file_open, file_path, wamas2dict
 
 
 class TestWamas2ubl(unittest.TestCase):
 
     knownValuesLines = (
         (
-            file_open(file_path('tests/line_WATEPQ_-_normal.wamas')).read(),
-            file_open(file_path('tests/line_WATEPQ_-_normal.dict')).read(),
+            file_open(file_path("tests/line_WATEPQ_-_normal.wamas")).read(),
+            file_open(file_path("tests/line_WATEPQ_-_normal.dict")).read(),
         ),
         (
-            file_open(file_path('tests/line_WATEPQ_-_weirdly_encoded_01.wamas')).read(),
-            file_open(file_path('tests/line_WATEPQ_-_weirdly_encoded_01.dict')).read(),
+            file_open(file_path("tests/line_WATEPQ_-_weirdly_encoded_01.wamas")).read(),
+            file_open(file_path("tests/line_WATEPQ_-_weirdly_encoded_01.dict")).read(),
         ),
         (
-            file_open(file_path('tests/line_WATEKQ_-_length_off_by_one_01.wamas')).read(),
-            file_open(file_path('tests/line_WATEKQ_-_length_off_by_one_01.dict')).read(),
+            file_open(
+                file_path("tests/line_WATEKQ_-_length_off_by_one_01.wamas")
+            ).read(),
+            file_open(
+                file_path("tests/line_WATEKQ_-_length_off_by_one_01.dict")
+            ).read(),
         ),
     )
 
     def testWamas2dict(self):
         for input, expected_output in self.knownValuesLines:
-            #pprint(wamas2dict(input), open('tmp.dict', 'w'))
+            # pprint(wamas2dict(input), open('tmp.dict', 'w'))
             output_prettified = io.StringIO()
             pprint(wamas2dict(input), output_prettified)
             output_prettified = output_prettified.getvalue()
-            self.assertEqual(
-                output_prettified,
-                expected_output
-            )
+            self.assertEqual(output_prettified, expected_output)
 
 
 if __name__ == "__main__":

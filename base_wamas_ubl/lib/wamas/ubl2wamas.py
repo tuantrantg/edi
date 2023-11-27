@@ -1,26 +1,31 @@
 #!/usr/bin/python3
 
-from dateutil.parser import parse
-from datetime import date, datetime
-from dotty_dict import Dotty
 import getopt
+import logging
 import sys
-import xmltodict
+from datetime import date, datetime
 
+import xmltodict
+from dateutil.parser import parse
+from dotty_dict import Dotty
+
+_logger = logging.getLogger("wamas2ubl")
+
+# TODO: Find "clean" way to manage imports for both module & CLI contexts
 try:
     from .utils import *
-    from .wamas_grammar import weak, weap, ausk, ausp  # noqa: F401
+    from .wamas_grammar import ausk, ausp, weak, weap  # noqa: F401
 except ImportError:
     from utils import *
-    from wamas_grammar import weak, weap, ausk, ausp  # noqa: F401
+    from wamas_grammar import ausk, ausp, weak, weap  # noqa: F401
 
 
 def _set_string(val, length, dp):
-    return str(val or "").ljust(length)[: length]
+    return str(val or "").ljust(length)[:length]
 
 
 def _set_string_int(val, length, dp):
-    return str(val).rjust(length, "0")[: length]
+    return str(val).rjust(length, "0")[:length]
 
 
 def _set_string_float(val, length, dp):
@@ -28,13 +33,15 @@ def _set_string_float(val, length, dp):
 
     # Check if it is int / float or not
     if not res.replace(".", "", 1).isdigit():
-        raise Exception("The value '%s' is not the float type. Please check it again!" % res)
+        raise Exception(
+            "The value '%s' is not the float type. Please check it again!" % res
+        )
 
     str_whole_number, str_decimal_portion = res.split(".")
     str_whole_number = str_whole_number.rjust(length - dp, "0")
     str_decimal_portion = str_decimal_portion.ljust(dp, "0")
 
-    return (str_whole_number + str_decimal_portion)[: length]
+    return (str_whole_number + str_decimal_portion)[:length]
 
 
 def _set_string_date(val, length, dp):
@@ -47,9 +54,11 @@ def _set_string_date(val, length, dp):
     elif isinstance(res, str):
         res = res.ljust(length)
     else:
-        raise Exception("The value '%s' is not the date type. Please check it again!" % res)
+        raise Exception(
+            "The value '%s' is not the date type. Please check it again!" % res
+        )
 
-    return res[: length]
+    return res[:length]
 
 
 def _set_string_datetime(val, length, dp):
@@ -60,13 +69,15 @@ def _set_string_datetime(val, length, dp):
     elif isinstance(res, str):
         res = res.ljust(length)
     else:
-        raise Exception("The value '%s' is not the date type. Please check it again!" % res)
+        raise Exception(
+            "The value '%s' is not the date type. Please check it again!" % res
+        )
 
-    return res.ljust(length)[: length]
+    return res.ljust(length)[:length]
 
 
 def _set_string_bool(val, length, dp):
-    return (val or "N")[: length]
+    return (val or "N")[:length]
 
 
 def set_value_to_string(val, ttype, length, dp):
@@ -89,7 +100,7 @@ def _get_current_datetime(val=0):
     return datetime.utcnow()
 
 
-def ubl2list_of_str_wamas(infile, telegram_type):
+def ubl2list_str(infile, telegram_type):
     res = []
 
     my_dict = Dotty(xmltodict.parse(infile))
@@ -109,7 +120,12 @@ def ubl2list_of_str_wamas(infile, telegram_type):
         grammar = eval(telegram_type.lower()).grammar
 
         loop_element = dict_telegram_type_loop.get(telegram_type, False)
-        len_loop = loop_element and isinstance(my_dict[loop_element], list) and len(my_dict[loop_element]) or 1
+        len_loop = (
+            loop_element
+            and isinstance(my_dict[loop_element], list)
+            and len(my_dict[loop_element])
+            or 1
+        )
 
         for idx_loop in range(len_loop):
             idx += 1
@@ -125,9 +141,13 @@ def ubl2list_of_str_wamas(infile, telegram_type):
 
                 if ubl_path:
                     if len_loop > 1:
-                        ubl_path = "%s" in ubl_path and ubl_path % str(idx_loop) or ubl_path
+                        ubl_path = (
+                            "%s" in ubl_path and ubl_path % str(idx_loop) or ubl_path
+                        )
                     else:
-                        ubl_path = "%s" in ubl_path and ubl_path.replace(".%s", "") or ubl_path
+                        ubl_path = (
+                            "%s" in ubl_path and ubl_path.replace(".%s", "") or ubl_path
+                        )
 
                     if isinstance(ubl_path, list):
                         lst_val = []
@@ -157,15 +177,15 @@ def ubl2list_of_str_wamas(infile, telegram_type):
 
 
 def ubl2wamas(infile, telegram_type, verbose=False):
-    lst_of_str_wamas = ubl2list_of_str_wamas(infile, telegram_type)
+    lst_of_str_wamas = ubl2list_str(infile, telegram_type)
     wamas = "\n".join(lst_of_str_wamas)
     if verbose:
-        print(wamas)
+        _logger.debug(wamas)
     return wamas
 
 
 def usage(argv):
-    print("%s -i <inputfile> -t <telegram_types>" % argv[0])
+    _logger.debug("%s -i <inputfile> -t <telegram_types>" % argv[0])
 
 
 def main(argv):

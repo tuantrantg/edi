@@ -4,8 +4,8 @@
 
 from odoo import api, models
 
-from ..lib.wamas.wamas2ubl import wamas2dict, dict2ubl, wamas2ubl
 from ..lib.wamas.ubl2wamas import ubl2wamas
+from ..lib.wamas.wamas2ubl import dict2ubl, wamas2dict, wamas2ubl
 
 
 class BaseWamasUbl(models.AbstractModel):

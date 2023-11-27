@@ -5,8 +5,9 @@
 from difflib import SequenceMatcher
 
 from odoo.tests.common import TransactionCase
+from odoo.tools import file_open
+
 from odoo.addons.account.tests.common import AccountTestInvoicingCommon
-from odoo.tools import file_open, file_path
 
 
 class TestBaseWamas(TransactionCase):
@@ -15,8 +16,12 @@ class TestBaseWamas(TransactionCase):
         super().setUpClass()
         cls.base_wamas_ubl = cls.env["base.wamas.ubl"]
         cls.assertXmlTreeEqual = AccountTestInvoicingCommon.assertXmlTreeEqual
-        cls.get_xml_tree_from_string = AccountTestInvoicingCommon.get_xml_tree_from_string
-        cls._turn_node_as_dict_hierarchy = AccountTestInvoicingCommon._turn_node_as_dict_hierarchy
+        cls.get_xml_tree_from_string = (
+            AccountTestInvoicingCommon.get_xml_tree_from_string
+        )
+        cls._turn_node_as_dict_hierarchy = (
+            AccountTestInvoicingCommon._turn_node_as_dict_hierarchy
+        )
 
     def _is_string_similar(self, s1, s2, threshold=0.9):
         return SequenceMatcher(a=s1, b=s2).ratio() > threshold
@@ -39,22 +44,34 @@ class TestBaseWamas(TransactionCase):
 
     # picking
     def test_convert_wamas2ubl_auskq_watekq_watepq(self):
-        input_file = "base_wamas_ubl/tests/files/WAMAS2UBL-SAMPLE_AUSKQ_WATEKQ_WATEPQ.txt"
-        expected_output = "base_wamas_ubl/tests/files/WAMAS2UBL-SAMPLE_AUSKQ_WATEKQ_WATEPQ-DESPATCH_ADVICE.xml"
+        input_file = (
+            "base_wamas_ubl/tests/files/WAMAS2UBL-SAMPLE_AUSKQ_WATEKQ_WATEPQ.wamas"
+        )
+        expected_output = (
+            "base_wamas_ubl/tests/files/WAMAS2UBL-"
+            "SAMPLE_AUSKQ_WATEKQ_WATEPQ-DESPATCH_ADVICE.xml"
+        )
         self._convert_wamas2ubl(input_file, [expected_output])
 
     def test_convert_ubl2wamas_ausk_ausp(self):
-        input_file = "base_wamas_ubl/tests/files/UBL2WAMAS-SAMPLE_AUSK_AUSP-DESPATCH_ADVICE.xml"
-        expected_output = "base_wamas_ubl/tests/files/UBL2WAMAS-SAMPLE_AUSK_AUSP.txt"
+        input_file = (
+            "base_wamas_ubl/tests/files/UBL2WAMAS-SAMPLE_AUSK_AUSP-DESPATCH_ADVICE.xml"
+        )
+        expected_output = "base_wamas_ubl/tests/files/UBL2WAMAS-SAMPLE_AUSK_AUSP.wamas"
         self._convert_ubl2wamas(input_file, expected_output, "AUSK,AUSP")
 
     # reception
     def test_convert_wamas2ubl_weakq_weapq(self):
-        input_file = "base_wamas_ubl/tests/files/WAMAS2UBL-SAMPLE_WEAKQ_WEAPQ.txt"
-        expected_output = "base_wamas_ubl/tests/files/WAMAS2UBL-SAMPLE_WEAKQ_WEAPQ-DESPATCH_ADVICE.xml"
+        input_file = "base_wamas_ubl/tests/files/WAMAS2UBL-SAMPLE_WEAKQ_WEAPQ.wamas"
+        expected_output = (
+            "base_wamas_ubl/tests/files/WAMAS2UBL-"
+            "SAMPLE_WEAKQ_WEAPQ-DESPATCH_ADVICE.xml"
+        )
         self._convert_wamas2ubl(input_file, [expected_output])
 
     def test_convert_ubl2wamas_weak_weap(self):
-        input_file = "base_wamas_ubl/tests/files/UBL2WAMAS-SAMPLE_WEAK_WEAP-DESPATCH_ADVICE.xml"
-        expected_output = "base_wamas_ubl/tests/files/UBL2WAMAS-SAMPLE_WEAK_WEAP.txt"
+        input_file = (
+            "base_wamas_ubl/tests/files/UBL2WAMAS-SAMPLE_WEAK_WEAP-DESPATCH_ADVICE.xml"
+        )
+        expected_output = "base_wamas_ubl/tests/files/UBL2WAMAS-SAMPLE_WEAK_WEAP.wamas"
         self._convert_ubl2wamas(input_file, expected_output, "WEAK,WEAP")
