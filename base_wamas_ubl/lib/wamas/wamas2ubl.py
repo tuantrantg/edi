@@ -128,13 +128,13 @@ def fw2dict(line, grammar, telegram_type, verbose=False):
 
     # sanity checks
     expected_size = sum(fieldwidths)
-    line = line.encode()
+    line = line.encode("iso-8859-1")
     if len(line) != expected_size:
         _logger.debug(
             "Line of length %d does not match expected length %d: %s",
             len(line),
             expected_size,
-            line.decode(),
+            line.decode("iso-8859-1"),
         )
         _logger.debug(repr(unpack(line)))
 
@@ -156,7 +156,7 @@ def fw2dict(line, grammar, telegram_type, verbose=False):
             to_fix = line.split(b" ")[0]
             to_keep_idx = len(to_fix) + 1
             line = (
-                to_fix.decode().encode("ascii", "ignore").ljust(20, b" ")
+                to_fix.decode("iso-8859-1").encode("ascii", "ignore").ljust(20, b" ")
                 + line[to_keep_idx:]
             )
 
@@ -167,12 +167,12 @@ def fw2dict(line, grammar, telegram_type, verbose=False):
                     "Line of length %d still does not match expected length %d: %s",
                     len(line),
                     expected_size,
-                    line.decode(),
+                    line.decode("iso-8859-1"),
                 )
 
     # actual parsing
     try:
-        vals = tuple(s.decode() for s in unpack(line))
+        vals = tuple(s.decode("iso-8859-1") for s in unpack(line))
     except struct.error as e:
         _logger.debug(line)
         raise e
