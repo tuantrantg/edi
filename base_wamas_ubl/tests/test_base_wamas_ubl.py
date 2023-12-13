@@ -92,7 +92,7 @@ class TestBaseWamas(TransactionCase):
     @freeze_time("2023-05-01")
     def _convert_ubl2wamas(self, input_file, expected_output_file, telegram_type):
         str_input = file_open(input_file, "r").read()
-        output = self.base_wamas_ubl.parse_ubl2wamas(str_input, telegram_type)
+        output = self.base_wamas_ubl.ubl2wamas(str_input, telegram_type)
         expected_output = (
             file_open(expected_output_file, "r").read().encode("iso-8859-1")
         )
@@ -193,7 +193,7 @@ class TestBaseWamas(TransactionCase):
             file_open(dict_data["expected_output"], "r").read().encode("iso-8859-1")
         )
         dict_input = safe_eval(file_open(dict_data["input"], "r").read())
-        output = self.base_wamas_ubl.export_dict2wamas(dict_input, "LST")
+        output = self.base_wamas_ubl.dict2wamas(dict_input, "LST")
         self.assertEqual(output, expected_output)
 
     def test_get_wamas_type(self):
