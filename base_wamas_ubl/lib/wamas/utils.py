@@ -1,6 +1,7 @@
 import codecs
 import os
 from datetime import date, datetime
+from random import randint, randrange
 
 from dateutil.parser import parse
 
@@ -132,3 +133,22 @@ def set_value_to_string(val, ttype, length, dp):
         bool=_set_string_bool,
     )
     return setters[ttype](val, length, dp)
+
+
+def get_random_str_num(*args):
+    range_start = 10 ** (args[0] - 1)
+    range_end = (10 ** args[0]) - 1
+    return str(randint(range_start, range_end))
+
+
+def get_random_int_num(*args):
+    return randrange(9999)
+
+
+def get_parent_id(*args):
+    dict_parent_id, dict_child_key, field, telegram_type_out = args
+    return dict_parent_id[dict_child_key[telegram_type_out][field]]
+
+
+def get_random_quai(*args):
+    return "QUAI-%d" % randint(1, 999)
