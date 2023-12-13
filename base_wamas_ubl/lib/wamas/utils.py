@@ -6,6 +6,7 @@ import struct
 from collections import OrderedDict
 from datetime import date, datetime
 from pprint import pprint
+from random import randint, randrange
 
 from dateutil.parser import parse
 
@@ -73,11 +74,19 @@ def get_current_date():
 
 
 def get_source(*args):
-    return SYSTEM_ERP  # noqa: F405
+    return SYSTEM_ERP
 
 
 def get_destination(*args):
-    return SYSTEM_WAMAS  # noqa: F405
+    return SYSTEM_WAMAS
+
+
+def get_source_q(*args):
+    return SYSTEM_WAMAS
+
+
+def get_destination_q(*args):
+    return SYSTEM_ERP
 
 
 def get_sequence_number(val=0):
@@ -160,14 +169,35 @@ def set_value_to_string(val, ttype, length, dp):
     return setters[ttype](val, length, dp)
 
 
+def get_random_str_num(*args):
+    range_start = 10 ** (args[0] - 1)
+    range_end = (10 ** args[0]) - 1
+    return str(randint(range_start, range_end))
+
+
+def get_random_int_num(*args):
+    return randrange(9999)
+
+
+def get_parent_id(*args):
+    dict_parent_id, dict_child_key, field, telegram_type_out = args
+    return dict_parent_id[dict_child_key[telegram_type_out][field]]
+
+
+def get_random_quai(*args):
+    return "QUAI-%d" % randint(1, 999)
+
+
 def convert_unit_code(key, val):
     if key in LST_FIELD_UNIT_CODE:
         return MAPPING_UNITCODE_UBL_TO_WAMAS["unitCode"].get(val, val)
     return val
 
 
-def generate_wamas_line(dict_item, grammar, **kwargs):
+def generate_wamas_line(dict_item, grammar, **kwargs):  # noqa: C901
     res = ""
+    dict_parent_id = kwargs.get("dict_parent_id", {})
+    telegram_type_out = kwargs.get("telegram_type_out", False)
     for _key in grammar:
         val = ""
         ttype = grammar[_key].get("type", False)
@@ -207,10 +237,34 @@ def generate_wamas_line(dict_item, grammar, **kwargs):
             val = df_val
         if not val and df_func:
             args = (kwargs.get("line_idx", 0),)
+            if df_func == "get_parent_id":
+                args = (
+                    dict_parent_id,
+                    DICT_CHILD_KEY,  # noqa: F405
+                    _key,
+                    telegram_type_out,
+                )
+            elif df_func == "get_random_str_num":
+                args = (length,)
             val = globals()[df_func](*args)
 
         val = convert_unit_code(_key, val)
-        res += set_value_to_string(val, ttype, length, dp)
+        if kwargs.get("check_to_set_value_to_string", False):
+            # Ignore convert string of float/int/date/datetime type
+            # to move entire value when convert wamas2wamas
+            if (
+                not val
+                or _key in ["Telheader_TelSeq", "Telheader_AnlZeit"]
+                or df_func
+                or ttype not in ["float", "int", "date", "datetime"]
+            ):
+                val = set_value_to_string(val, ttype, length, dp)
+        else:
+            val = set_value_to_string(val, ttype, length, dp)
+        res += val
+        lst_parent_key = DICT_PARENT_KEY.get(telegram_type_out, False)  # noqa: F405
+        if lst_parent_key and _key in lst_parent_key:
+            dict_parent_id[_key] = val
     return res
 
 
