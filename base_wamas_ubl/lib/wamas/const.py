@@ -200,3 +200,45 @@ DICT_DETECT_WAMAS_TYPE = {
     ("ART",): "Product",
     ("KST",): "Customer",
 }
+# WAMAS TO WAMAS
+##
+
+
+LST_VALID_TELEGRAM_IN = [
+    "AUSK",
+    "AUSP",
+    "KRETK",
+    "KRETP",
+    "WATEK",
+    "WATEP",
+    "WEAK",
+    "WEAP",
+]
+
+
+DICT_CONVERT_WAMAS_TYPE = {
+    "AUSK": ["AUSKQ", "WATEKQ"],
+    "AUSP": ["WATEPQ"],
+    "AUSKQ": ["AUSK"],
+    "KRETK": ["KRETKQ"],
+    "KRETP": ["KRETPQ"],
+    "WEAK": ["WEAKQ"],
+    "WEAP": ["WEAPQ"],
+}
+
+
+DICT_WAMAS_GRAMMAR_OUT = {
+    "auskq": auskq.grammar_convert,
+    "kretkq": kretkq.grammar_convert,
+    "kretpq": kretpq.grammar_convert,
+    "watekq": watekq.grammar_convert,
+    "watepq": watepq.grammar_convert,
+    "weakq": weakq.grammar_convert,
+    "weapq": weapq.grammar_convert,
+}
+
+
+DICT_PARENT_KEY = {"WATEKQ": ["IvTek_TeId"]}
+
+
+DICT_CHILD_KEY = {"WATEPQ": {"IvTep_TeId": "IvTek_TeId"}}

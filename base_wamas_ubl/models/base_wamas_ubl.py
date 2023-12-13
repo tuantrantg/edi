@@ -7,6 +7,7 @@ from odoo import api, models
 from ..lib.wamas.ubl2wamas import ubl2wamas
 from ..lib.wamas.utils import detect_wamas_type, dict2wamas
 from ..lib.wamas.wamas2ubl import dict2ubl, wamas2dict, wamas2ubl
+from ..lib.wamas.wamas2wamas import wamas2wamas
 
 
 class BaseWamasUbl(models.AbstractModel):
@@ -26,14 +27,18 @@ class BaseWamasUbl(models.AbstractModel):
         return wamas2ubl(str_file, extra_data=extra_data)
 
     @api.model
-    def parse_ubl2wamas(self, str_file, telegram_type):
+    def ubl2wamas(self, str_file, telegram_type):
         return ubl2wamas(str_file, telegram_type)
 
     @api.model
-    def export_dict2wamas(self, dict_input, telegram_type):
+    def dict2wamas(self, dict_input, telegram_type):
         return dict2wamas(dict_input, telegram_type)
 
     @api.model
     def get_wamas_type(self, str_file):
         data, lst_telegram_type, wamas_type = detect_wamas_type(str_file)
         return lst_telegram_type, wamas_type
+
+    @api.model
+    def wamas2wamas(self, dict_input, telegram_type):
+        return wamas2wamas(dict_input, telegram_type)
