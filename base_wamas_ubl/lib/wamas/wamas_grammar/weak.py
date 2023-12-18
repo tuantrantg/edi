@@ -248,7 +248,7 @@ grammar = OrderedDict(
             "type": "str",
             "length": 77,
             "dp": False,
-            "ubl_path": False,
+            "ubl_path": "DespatchAdvice.cbc:Note",
             "df_val": False,
             "df_func": False,
         },
