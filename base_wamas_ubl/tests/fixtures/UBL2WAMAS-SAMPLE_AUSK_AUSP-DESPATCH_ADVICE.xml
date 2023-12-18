@@ -2,6 +2,7 @@
 <DespatchAdvice xmlns:cbc="urn:oasis:names:specification:ubl:schema:xsd:CommonBasicComponents-2" xmlns:cac="urn:oasis:names:specification:ubl:schema:xsd:CommonAggregateComponents-2" xmlns="urn:oasis:names:specification:ubl:schema:xsd:DespatchAdvice-2">
 	<cbc:UBLVersionID>2.2</cbc:UBLVersionID>
 	<cbc:ID>1673980/1700802</cbc:ID>
+	<cbc:Note/>
 	<cbc:IssueDate>2023-04-30</cbc:IssueDate>
 	<cac:OrderReference>
 		<cbc:ID>1700802</cbc:ID>
