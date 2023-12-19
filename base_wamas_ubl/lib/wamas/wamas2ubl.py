@@ -42,7 +42,7 @@ def _get_float(val, length=12, decimal_place=3):
 
 
 def _convert_float_field(data):
-    for _field in DICT_FLOAT_FIELD:
+    for _field in DICT_FLOAT_FIELD:  # noqa: F405
         val_field = data.get(_field, False)
         if val_field:
             data[_field] = _get_float(
@@ -142,10 +142,10 @@ def wamas2ubl(
         extra_data = {"DeliveryCustomerParty": {}, "DespatchSupplierParty": {}}
 
     if not dict_mapping_reception:
-        dict_mapping_reception = DICT_TUPLE_KEY_RECEPTION
+        dict_mapping_reception = DICT_TUPLE_KEY_RECEPTION  # noqa: F405
 
     if not dict_mapping_picking:
-        dict_mapping_picking = DICT_TUPLE_KEY_PICKING
+        dict_mapping_picking = DICT_TUPLE_KEY_PICKING  # noqa: F405
 
     # 1) parse wamas file
     data, dummy = wamas2dict(infile, verbose=verbose)
@@ -194,11 +194,15 @@ def wamas2ubl(
     if template_type == "reception":
         ubl = []
         for reception in receptions.values():
-            ubl.append(dict2ubl(ubl_template, reception, verbose, extra_data))
+            ubl.append(
+                dict2ubl(ubl_template, reception, verbose, extra_data)  # noqa: F405
+            )
     elif template_type == "picking":
         ubl = []
         for picking in pickings.values():
-            ubl.append(dict2ubl(ubl_template, picking, verbose, extra_data))
+            ubl.append(
+                dict2ubl(ubl_template, picking, verbose, extra_data)  # noqa: F405
+            )
     if verbose:
         _logger.debug("Number of UBL files generated: %d", len(ubl))
         for f in ubl:
