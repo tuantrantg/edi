@@ -11,32 +11,11 @@ _logger = logging.getLogger("ubl2wamas")
 
 # TODO: Find "clean" way to manage imports for both module & CLI contexts
 try:
-    from .utils import *  # noqa: F403
-    from .wamas2ubl import MAPPING_WAMAS_TO_UBL, MappingDict
-    from .wamas_grammar import ausk, ausp, kretk, kretp, weak, weap  # noqa: F401
+    from .const import DICT_WAMAS_GRAMMAR
+    from .utils import file_open, generate_wamas_line
 except ImportError:
-    from utils import *  # noqa: F403
-    from wamas2ubl import MAPPING_WAMAS_TO_UBL, MappingDict
-    from wamas_grammar import ausk, ausp, kretk, kretp, weak, weap  # noqa: F401
-
-
-LST_FIELD_UNIT_CODE = ["HostEinheit"]
-
-
-DICT_WAMAS_GRAMMAR = {
-    "ausk": ausk.grammar,
-    "ausp": ausp.grammar,
-    "kretk": kretk.grammar,
-    "kretp": kretp.grammar,
-    "weak": weak.grammar,
-    "weap": weap.grammar,
-}
-
-
-MAPPING_UBL_TO_WAMAS = {"unitCode": MappingDict()}
-for key, value in MAPPING_WAMAS_TO_UBL["unitCode"].items():
-    MAPPING_UBL_TO_WAMAS["unitCode"][value] = key
-MAPPING_UBL_TO_WAMAS["unitCode"]["C62"] = "BOT"  # Unit
+    from const import DICT_WAMAS_GRAMMAR
+    from utils import file_open, generate_wamas_line
 
 
 def ubl2list(infile, telegram_type):  # noqa: C901
@@ -55,7 +34,7 @@ def ubl2list(infile, telegram_type):  # noqa: C901
         "KRETP": "DespatchAdvice.cac:DespatchLine",
     }
 
-    idx = 0
+    line_idx = 0
     for telegram_type in lst_telegram_type:
         grammar = DICT_WAMAS_GRAMMAR[telegram_type.lower()]
 
@@ -68,51 +47,14 @@ def ubl2list(infile, telegram_type):  # noqa: C901
         )
 
         for idx_loop in range(len_loop):
-            idx += 1
-            line = ""
-            for _key in grammar:
-                val = ""
-                ttype = grammar[_key]["type"]
-                length = grammar[_key]["length"]
-                dp = grammar[_key]["dp"]
-                ubl_path = grammar[_key]["ubl_path"]
-                df_val = grammar[_key]["df_val"]
-                df_func = grammar[_key]["df_func"]
-
-                if ubl_path:
-                    if len_loop > 1:
-                        ubl_path = (
-                            "%s" in ubl_path and ubl_path % str(idx_loop) or ubl_path
-                        )
-                    else:
-                        ubl_path = (
-                            "%s" in ubl_path and ubl_path.replace(".%s", "") or ubl_path
-                        )
-
-                    if isinstance(ubl_path, list):
-                        lst_val = []
-                        for _item in ubl_path:
-                            lst_val.append(my_dict.get(_item, ""))
-                        if lst_val:
-                            val = " ".join(lst_val)
-                    elif isinstance(ubl_path, dict):
-                        for _key in ubl_path:
-                            if my_dict.get(_key, False):
-                                val = my_dict.get(ubl_path[_key], "")
-                    elif isinstance(ubl_path, str):
-                        val = my_dict.get(ubl_path, "")
-                    else:
-                        val = ""
-                elif df_val:
-                    val = df_val
-                elif df_func:
-                    val = globals()[df_func](idx)
-
-                if _key in LST_FIELD_UNIT_CODE:
-                    val = MAPPING_UBL_TO_WAMAS["unitCode"].get(val, "")
-
-                line += set_value_to_string(val, ttype, length, dp)  # noqa: F405
-
+            line_idx += 1
+            line = generate_wamas_line(
+                my_dict,
+                grammar,
+                line_idx=line_idx,
+                len_loop=len_loop,
+                idx_loop=idx_loop,
+            )
             if line:
                 res.append(line)
 
@@ -140,7 +82,7 @@ def main(argv):
             usage(argv)
             sys.exit()
         elif opt in ("-i", "--ifile"):
-            infile = file_open(arg).read()  # noqa: F405
+            infile = file_open(arg).read()
         elif opt in ("-v", "--verbose"):
             verbose = True
             logging.basicConfig(level=logging.DEBUG)
