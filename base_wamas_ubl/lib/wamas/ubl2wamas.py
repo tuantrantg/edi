@@ -36,7 +36,7 @@ def ubl2list(infile, telegram_type):  # noqa: C901
 
     line_idx = 0
     for telegram_type in lst_telegram_type:
-        grammar = DICT_WAMAS_GRAMMAR[telegram_type.lower()]
+        grammar = DICT_WAMAS_GRAMMAR[telegram_type.lower()]  # noqa: F405
 
         loop_element = dict_telegram_type_loop.get(telegram_type, False)
         len_loop = (

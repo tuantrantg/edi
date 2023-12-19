@@ -73,11 +73,11 @@ def get_current_date():
 
 
 def get_source(*args):
-    return SYSTEM_ERP
+    return SYSTEM_ERP  # noqa: F405
 
 
 def get_destination(*args):
-    return SYSTEM_WAMAS
+    return SYSTEM_WAMAS  # noqa: F405
 
 
 def get_sequence_number(val=0):
