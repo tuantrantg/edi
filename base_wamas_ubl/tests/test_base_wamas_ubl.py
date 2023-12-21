@@ -8,6 +8,7 @@ from freezegun import freeze_time
 
 from odoo.tests.common import TransactionCase
 from odoo.tools import file_open
+from odoo.tools.safe_eval import safe_eval
 
 from odoo.addons.account.tests.common import AccountTestInvoicingCommon
 
@@ -181,3 +182,16 @@ class TestBaseWamas(TransactionCase):
             self._convert_ubl2wamas(
                 data["input_file"], data["expected_output"], data["type"]
             )
+
+    @freeze_time("2023-12-21 04:12:51")
+    def test_export_dict2wamas(self):
+        dict_data = {
+            "input": "base_wamas_ubl/tests/fixtures/DICT2WAMAS-SAMPLE_INPUT.dict",
+            "expected_output": "base_wamas_ubl/tests/fixtures/DICT2WAMAS-SAMPLE_OUTPUT.wamas",
+        }
+        expected_output = (
+            file_open(dict_data["expected_output"], "r").read().encode("iso-8859-1")
+        )
+        dict_input = safe_eval(file_open(dict_data["input"], "r").read())
+        output = self.base_wamas_ubl.export_dict2wamas(dict_input, "LST")
+        self.assertEqual(output, expected_output)
