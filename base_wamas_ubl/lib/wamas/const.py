@@ -2,6 +2,7 @@
 try:
     from .structure import MappingDict
     from .wamas_grammar import (
+        art,
         ausk,
         auskq,
         ausp,
@@ -19,6 +20,7 @@ try:
 except ImportError:
     from structure import MappingDict
     from wamas_grammar import (
+        art,
         ausk,
         auskq,
         ausp,
