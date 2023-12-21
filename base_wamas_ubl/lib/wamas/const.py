@@ -10,6 +10,8 @@ try:
         kretkq,
         kretp,
         kretpq,
+        kst,
+        lst,
         watekq,
         watepq,
         weak,
@@ -28,6 +30,8 @@ except ImportError:
         kretkq,
         kretp,
         kretpq,
+        kst,
+        lst,
         watekq,
         watepq,
         weak,
@@ -62,10 +66,21 @@ TELEGRAM_HEADER_GRAMMAR = {
 ##
 
 
-LST_TELEGRAM_TYPE_SUPPORT_D2W = ["WEAK", "WEAP", "AUSK", "AUSP", "KRETK", "KRETP"]
+LST_TELEGRAM_TYPE_SUPPORT_D2W = [
+    "ART",
+    "WEAK",
+    "WEAP",
+    "AUSK",
+    "AUSP",
+    "KRETK",
+    "KRETP",
+    "KST",
+    "LST",
+]
 
 
 DICT_WAMAS_GRAMMAR = {
+    "art": art.grammar,
     "ausk": ausk.grammar,
     "ausp": ausp.grammar,
     "kretk": kretk.grammar,
@@ -75,6 +90,8 @@ DICT_WAMAS_GRAMMAR = {
     "auskq": auskq.grammar,
     "kretkq": kretkq.grammar,
     "kretpq": kretpq.grammar,
+    "kst": kst.grammar,
+    "lst": lst.grammar,
     "watekq": watekq.grammar,
     "watepq": watepq.grammar,
     "weakq": weakq.grammar,
