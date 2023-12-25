@@ -195,3 +195,18 @@ class TestBaseWamas(TransactionCase):
         dict_input = safe_eval(file_open(dict_data["input"], "r").read())
         output = self.base_wamas_ubl.export_dict2wamas(dict_input, "LST")
         self.assertEqual(output, expected_output)
+
+    def test_get_wamas_type(self):
+        dict_data = {
+            "input": "base_wamas_ubl/tests/fixtures/CHECKWAMAS-SAMPLE_INPUT.wamas",
+            "expected_output": "base_wamas_ubl/tests/fixtures/CHECKWAMAS-SAMPLE_OUTPUT.dict",
+        }
+        str_input = file_open(dict_data["input"], "r").read()
+        dict_expected_output = safe_eval(
+            file_open(dict_data["expected_output"], "r").read()
+        )
+        lst_telegram_type, wamas_type = self.base_wamas_ubl.get_wamas_type(str_input)
+        # Telegram Types
+        self.assertEqual(lst_telegram_type, dict_expected_output["lst_telegram_type"])
+        # Wamas Type
+        self.assertEqual(wamas_type, dict_expected_output["wamas_type"])
