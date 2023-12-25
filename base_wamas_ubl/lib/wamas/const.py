@@ -105,13 +105,22 @@ DICT_WAMAS_GRAMMAR = {
 
 
 LST_TELEGRAM_TYPE_SUPPORT_W2D = [
+    "ART",
+    "AUSK",
     "AUSKQ",
-    "WEAKQ",
-    "WEAPQ",
+    "AUSP",
+    "KRETK",
+    "KRETKQ",
+    "KRETP",
+    "KRETPQ",
+    "KST",
+    "LST",
     "WATEKQ",
     "WATEPQ",
-    "KRETKQ",
-    "KRETPQ",
+    "WEAK",
+    "WEAKQ",
+    "WEAP",
+    "WEAPQ",
 ]
 
 
@@ -173,3 +182,21 @@ MAPPING_UNITCODE_UBL_TO_WAMAS = {"unitCode": MappingDict()}
 for key, value in MAPPING_UNITCODE_WAMAS_TO_UBL["unitCode"].items():
     MAPPING_UNITCODE_UBL_TO_WAMAS["unitCode"][value] = key
 MAPPING_UNITCODE_UBL_TO_WAMAS["unitCode"]["C62"] = "BOT"  # Unit
+
+
+##
+# CHECK WAMAS
+##
+
+DICT_DETECT_WAMAS_TYPE = {
+    ("WEAK", "WEAP"): "Reception",
+    ("WEAKQ", "WEAPQ"): "Reception",
+    ("AUSK", "AUSP"): "Picking",
+    ("AUSKQ", "WATEKQ", "WATEPQ"): "Picking",
+    ("KRETK", "KRETP"): "Return",
+    ("KRETKQ", "KRETPQ"): "Return",
+    ("KSTAUS",): "Customer Delivery Preference",
+    ("LST",): "Supplier",
+    ("ART",): "Product",
+    ("KST",): "Customer",
+}
