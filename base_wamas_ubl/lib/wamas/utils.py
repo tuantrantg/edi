@@ -15,6 +15,7 @@ _logger = logging.getLogger("wamas_utils")
 try:
     from . import miniqweb
     from .const import (
+        DICT_DETECT_WAMAS_TYPE,
         DICT_WAMAS_GRAMMAR,
         LST_FIELD_UNIT_CODE,
         LST_TELEGRAM_TYPE_IGNORE_W2D,
@@ -30,6 +31,7 @@ try:
 except ImportError:
     import miniqweb
     from const import (
+        DICT_DETECT_WAMAS_TYPE,
         DICT_WAMAS_GRAMMAR,
         LST_FIELD_UNIT_CODE,
         LST_TELEGRAM_TYPE_IGNORE_W2D,
@@ -364,3 +366,10 @@ def dict2ubl(template, data, verbose=False, extra_data=False):
     if verbose:
         pprint(xml)
     return xml
+
+
+def detect_wamas_type(infile):
+    data, lst_telegram_type = wamas2dict(infile, use_simple_grammar=True)
+    lst_telegram_type.sort()
+    wamas_type = DICT_DETECT_WAMAS_TYPE.get(tuple(lst_telegram_type), "Undefined")
+    return data, lst_telegram_type, wamas_type

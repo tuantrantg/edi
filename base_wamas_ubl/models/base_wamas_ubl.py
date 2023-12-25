@@ -5,7 +5,7 @@
 from odoo import api, models
 
 from ..lib.wamas.ubl2wamas import ubl2wamas
-from ..lib.wamas.utils import dict2wamas
+from ..lib.wamas.utils import detect_wamas_type, dict2wamas
 from ..lib.wamas.wamas2ubl import dict2ubl, wamas2dict, wamas2ubl
 
 
@@ -32,3 +32,8 @@ class BaseWamasUbl(models.AbstractModel):
     @api.model
     def export_dict2wamas(self, dict_input, telegram_type):
         return dict2wamas(dict_input, telegram_type)
+
+    @api.model
+    def get_wamas_type(self, str_file):
+        data, lst_telegram_type, wamas_type = detect_wamas_type(str_file)
+        return lst_telegram_type, wamas_type
