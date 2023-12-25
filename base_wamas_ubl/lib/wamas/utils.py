@@ -13,15 +13,35 @@ _logger = logging.getLogger("wamas_utils")
 
 # TODO: Find "clean" way to manage imports for both module & CLI contexts
 try:
-    from . import miniqweb  # noqa: F403
-    from .const import *  # noqa: F403
-    from .structure import *  # noqa: F403
-    from .wamas_grammar import ausk, ausp, kretk, kretp, weak, weap  # noqa: F401
+    from . import miniqweb
+    from .const import (
+        DICT_WAMAS_GRAMMAR,
+        LST_FIELD_UNIT_CODE,
+        LST_TELEGRAM_TYPE_IGNORE_W2D,
+        LST_TELEGRAM_TYPE_SUPPORT_D2W,
+        LST_TELEGRAM_TYPE_SUPPORT_W2D,
+        MAPPING_UNITCODE_UBL_TO_WAMAS,
+        MAPPING_UNITCODE_WAMAS_TO_UBL,
+        SYSTEM_ERP,
+        SYSTEM_WAMAS,
+        TELEGRAM_HEADER_GRAMMAR,
+    )
+    from .structure import obj
 except ImportError:
-    import miniqweb  # noqa: F403
-    from const import *  # noqa: F403
-    from structure import *  # noqa: F403
-    from wamas_grammar import ausk, ausp, kretk, kretp, weak, weap  # noqa: F401
+    import miniqweb
+    from const import (
+        DICT_WAMAS_GRAMMAR,
+        LST_FIELD_UNIT_CODE,
+        LST_TELEGRAM_TYPE_IGNORE_W2D,
+        LST_TELEGRAM_TYPE_SUPPORT_D2W,
+        LST_TELEGRAM_TYPE_SUPPORT_W2D,
+        MAPPING_UNITCODE_UBL_TO_WAMAS,
+        MAPPING_UNITCODE_WAMAS_TO_UBL,
+        SYSTEM_ERP,
+        SYSTEM_WAMAS,
+        TELEGRAM_HEADER_GRAMMAR,
+    )
+    from structure import obj
 
 
 def file_path(path):
@@ -139,8 +159,8 @@ def set_value_to_string(val, ttype, length, dp):
 
 
 def convert_unit_code(key, val):
-    if key in LST_FIELD_UNIT_CODE:  # noqa: F405
-        return MAPPING_UNITCODE_UBL_TO_WAMAS["unitCode"].get(val, val)  # noqa: F405
+    if key in LST_FIELD_UNIT_CODE:
+        return MAPPING_UNITCODE_UBL_TO_WAMAS["unitCode"].get(val, val)
     return val
 
 
@@ -196,15 +216,13 @@ def dict2wamas(dict_input, telegram_type):
     wamas_lines = []
     lst_telegram_type = telegram_type.split(",")
 
-    if not all(
-        x in LST_TELEGRAM_TYPE_SUPPORT_D2W for x in lst_telegram_type  # noqa: F405
-    ):
+    if not all(x in LST_TELEGRAM_TYPE_SUPPORT_D2W for x in lst_telegram_type):
         raise Exception("Invalid telegram types: %s" % telegram_type)
 
     line_idx = 0
     for telegram_type in lst_telegram_type:
         line_idx += 1
-        grammar = DICT_WAMAS_GRAMMAR[telegram_type.lower()]  # noqa: F405
+        grammar = DICT_WAMAS_GRAMMAR[telegram_type.lower()]
         line = generate_wamas_line(dict_input, grammar, line_idx=line_idx)
         if line:
             wamas_lines.append(line)
@@ -214,16 +232,16 @@ def dict2wamas(dict_input, telegram_type):
 
 def _get_grammar(telegram_type, use_simple_grammar=False):
     if use_simple_grammar:
-        grammar = DICT_WAMAS_GRAMMAR[telegram_type.lower()]  # noqa: F405
+        grammar = DICT_WAMAS_GRAMMAR[telegram_type.lower()]
         if not isinstance(list(grammar.values())[0], dict):
             return grammar
         simple_grammar = OrderedDict()
         for field in grammar:
-            if field in TELEGRAM_HEADER_GRAMMAR.keys():  # noqa: F405
+            if field in TELEGRAM_HEADER_GRAMMAR.keys():
                 continue
             simple_grammar[field] = grammar[field]["length"]
         return simple_grammar
-    return DICT_WAMAS_GRAMMAR[telegram_type.lower()]  # noqa: F405
+    return DICT_WAMAS_GRAMMAR[telegram_type.lower()]
 
 
 def fw2dict(line, grammar, telegram_type, verbose=False):
@@ -303,24 +321,22 @@ def fw2dict(line, grammar, telegram_type, verbose=False):
 def wamas2dict(
     infile, lst_valid_telgram=False, use_simple_grammar=False, verbose=False
 ):
-    header_len = sum(TELEGRAM_HEADER_GRAMMAR.values())  # noqa: F405
+    header_len = sum(TELEGRAM_HEADER_GRAMMAR.values())
     result = {}
     lst_telegram_type_in = []
 
     if not lst_valid_telgram:
-        lst_valid_telgram = LST_TELEGRAM_TYPE_SUPPORT_W2D  # noqa: F405
+        lst_valid_telgram = LST_TELEGRAM_TYPE_SUPPORT_W2D
 
     for line in infile.splitlines():
         if not line:
             continue
-        head = fw2dict(
-            line[:header_len], TELEGRAM_HEADER_GRAMMAR, "header"  # noqa: F405
-        )
+        head = fw2dict(line[:header_len], TELEGRAM_HEADER_GRAMMAR, "header")
         telegram_type, telegram_seq, dummy = re.split(r"(\d+)", head["Satzart"], 1)
         # ignore useless telegram types
-        if telegram_type in LST_TELEGRAM_TYPE_IGNORE_W2D:  # noqa: F405
+        if telegram_type in LST_TELEGRAM_TYPE_IGNORE_W2D:
             continue
-        if telegram_type not in lst_valid_telgram:  # noqa: F405
+        if telegram_type not in lst_valid_telgram:
             raise Exception("Invalid telegram type: %s" % telegram_type)
         lst_telegram_type_in.append(telegram_type)
         grammar = _get_grammar(telegram_type, use_simple_grammar)
@@ -337,11 +353,11 @@ def dict2ubl(template, data, verbose=False, extra_data=False):
     t = miniqweb.QWebXml(template)
     # Convert dict to object to use dotted notation in template
     globals_dict = {
-        "record": obj(data),  # noqa: F405
-        "get_date": get_date,  # noqa: F405
-        "get_time": get_time,  # noqa: F405
-        "get_current_date": get_current_date,  # noqa: F405
-        "MAPPING": MAPPING_UNITCODE_WAMAS_TO_UBL,  # noqa: F405
+        "record": obj(data),
+        "get_date": get_date,
+        "get_time": get_time,
+        "get_current_date": get_current_date,
+        "MAPPING": MAPPING_UNITCODE_WAMAS_TO_UBL,
         "extra_data": extra_data,
     }
     xml = t.render(globals_dict)

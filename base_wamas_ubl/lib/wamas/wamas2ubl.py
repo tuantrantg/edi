@@ -9,29 +9,15 @@ _logger = logging.getLogger("wamas2ubl")
 
 # TODO: Find "clean" way to manage imports for both module & CLI contexts
 try:
-    from .const import *  # noqa: F403
-    from .utils import *  # noqa: F403
-    from .wamas_grammar import (  # noqa: F401
-        auskq,
-        kretkq,
-        kretpq,
-        watekq,
-        watepq,
-        weakq,
-        weapq,
+    from .const import (
+        DICT_FLOAT_FIELD,
+        DICT_TUPLE_KEY_PICKING,
+        DICT_TUPLE_KEY_RECEPTION,
     )
+    from .utils import dict2ubl, file_open, file_path, wamas2dict
 except ImportError:
-    from const import *  # noqa: F403
-    from utils import *  # noqa: F403
-    from wamas_grammar import (  # noqa: F401
-        auskq,
-        kretkq,
-        kretpq,
-        watekq,
-        watepq,
-        weakq,
-        weapq,
-    )
+    from const import DICT_FLOAT_FIELD, DICT_TUPLE_KEY_PICKING, DICT_TUPLE_KEY_RECEPTION
+    from utils import dict2ubl, file_open, file_path, wamas2dict
 
 ##
 # Data transformations
@@ -61,8 +47,8 @@ def _convert_float_field(data):
         if val_field:
             data[_field] = _get_float(
                 val_field,
-                DICT_FLOAT_FIELD[_field][0],  # noqa: F405
-                DICT_FLOAT_FIELD[_field][1],  # noqa: F405
+                DICT_FLOAT_FIELD[_field][0],
+                DICT_FLOAT_FIELD[_field][1],
             )
 
 
@@ -162,7 +148,7 @@ def wamas2ubl(
         dict_mapping_picking = DICT_TUPLE_KEY_PICKING  # noqa: F405
 
     # 1) parse wamas file
-    data, dummy = wamas2dict(infile, verbose=verbose)  # noqa: F405
+    data, dummy = wamas2dict(infile, verbose=verbose)
     if verbose:
         pprint(data)
 
@@ -200,7 +186,7 @@ def wamas2ubl(
         )
 
     # 3) get template
-    tmpl_file = file_open(file_path(tmpl_path))  # noqa: F405
+    tmpl_file = file_open(file_path(tmpl_path))
     ubl_template = tmpl_file.read()
     tmpl_file.close()
 
@@ -237,7 +223,7 @@ def main(argv):
             usage(argv)
             sys.exit()
         elif opt in ("-i", "--ifile"):
-            infile = file_open(arg).read()  # noqa: F405
+            infile = file_open(arg).read()
         elif opt in ("-v", "--verbose"):
             verbose = True
             logging.basicConfig(level=logging.DEBUG)

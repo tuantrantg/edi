@@ -1,7 +1,7 @@
 # TODO: Find "clean" way to manage imports for both module & CLI contexts
 try:
     from .structure import MappingDict
-    from .wamas_grammar import (  # noqa: F401
+    from .wamas_grammar import (
         art,
         ausk,
         auskq,
@@ -21,7 +21,7 @@ try:
     )
 except ImportError:
     from structure import MappingDict
-    from wamas_grammar import (  # noqa: F401
+    from wamas_grammar import (
         art,
         ausk,
         auskq,

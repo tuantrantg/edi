@@ -1,7 +1,7 @@
 import unittest
 from datetime import date, datetime
 
-from ubl2wamas import set_value_to_string
+from utils import set_value_to_string
 
 
 class TestUbl2wamas(unittest.TestCase):

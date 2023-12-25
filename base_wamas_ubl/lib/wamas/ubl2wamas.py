@@ -11,13 +11,11 @@ _logger = logging.getLogger("ubl2wamas")
 
 # TODO: Find "clean" way to manage imports for both module & CLI contexts
 try:
-    from .const import *  # noqa: F403
-    from .utils import *  # noqa: F403
-    from .wamas_grammar import ausk, ausp, kretk, kretp, weak, weap  # noqa: F401
+    from .const import DICT_WAMAS_GRAMMAR
+    from .utils import file_open, generate_wamas_line
 except ImportError:
-    from const import *  # noqa: F403
-    from utils import *  # noqa: F403
-    from wamas_grammar import ausk, ausp, kretk, kretp, weak, weap  # noqa: F401
+    from const import DICT_WAMAS_GRAMMAR
+    from utils import file_open, generate_wamas_line
 
 
 def ubl2list(infile, telegram_type):  # noqa: C901
@@ -50,7 +48,7 @@ def ubl2list(infile, telegram_type):  # noqa: C901
 
         for idx_loop in range(len_loop):
             line_idx += 1
-            line = generate_wamas_line(  # noqa: F405
+            line = generate_wamas_line(
                 my_dict,
                 grammar,
                 line_idx=line_idx,
@@ -84,7 +82,7 @@ def main(argv):
             usage(argv)
             sys.exit()
         elif opt in ("-i", "--ifile"):
-            infile = file_open(arg).read()  # noqa: F405
+            infile = file_open(arg).read()
         elif opt in ("-v", "--verbose"):
             verbose = True
             logging.basicConfig(level=logging.DEBUG)

@@ -2,7 +2,8 @@ import io
 import unittest
 from pprint import pprint
 
-from wamas2ubl import file_open, file_path, wamas2dict
+from utils import file_open, file_path
+from wamas2ubl import wamas2dict
 
 
 class TestWamas2ubl(unittest.TestCase):
