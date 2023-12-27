@@ -2,13 +2,13 @@
 # Copyright 2023 Camptocamp SA
 # License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl.html).
 
+from ast import literal_eval
 from difflib import SequenceMatcher
 
 from freezegun import freeze_time
 
 from odoo.tests.common import TransactionCase
 from odoo.tools import file_open
-from odoo.tools.safe_eval import safe_eval
 
 from odoo.addons.account.tests.common import AccountTestInvoicingCommon
 
@@ -81,7 +81,7 @@ class TestBaseWamas(TransactionCase):
     @freeze_time("2023-05-01")
     def _convert_wamas2ubl(self, input_file, expected_output_files):
         str_input = file_open(input_file, "r").read()
-        outputs = self.base_wamas_ubl.parse_wamas2ubl(str_input, self.extra_data)
+        outputs = self.base_wamas_ubl.wamas2ubl(str_input, self.extra_data)
 
         for i, output in enumerate(outputs):
             output_tree = self.get_xml_tree_from_string(output)
@@ -103,30 +103,30 @@ class TestBaseWamas(TransactionCase):
             "wamas2ubl": {
                 "picking": [
                     {
-                        "input_file": "base_wamas_ubl/tests/fixtures/"
+                        "input_file": "base_wamas_ubl/tests/samples/"
                         "WAMAS2UBL-SAMPLE_AUSKQ_WATEKQ_WATEPQ.wamas",
                         "lst_expected_output": [
-                            "base_wamas_ubl/tests/fixtures/"
+                            "base_wamas_ubl/tests/samples/"
                             "WAMAS2UBL-SAMPLE_AUSKQ_WATEKQ_WATEPQ-DESPATCH_ADVICE.xml"
                         ],
                     },
                 ],
                 "reception": [
                     {
-                        "input_file": "base_wamas_ubl/tests/fixtures/"
+                        "input_file": "base_wamas_ubl/tests/samples/"
                         "WAMAS2UBL-SAMPLE_WEAKQ_WEAPQ.wamas",
                         "lst_expected_output": [
-                            "base_wamas_ubl/tests/fixtures/"
+                            "base_wamas_ubl/tests/samples/"
                             "WAMAS2UBL-SAMPLE_WEAKQ_WEAPQ-DESPATCH_ADVICE.xml"
                         ],
                     },
                     {
-                        "input_file": "base_wamas_ubl/tests/fixtures/"
+                        "input_file": "base_wamas_ubl/tests/samples/"
                         "WAMAS2UBL-SAMPLE_KRETKQ_KRETPQ.wamas",
                         "lst_expected_output": [
-                            "base_wamas_ubl/tests/fixtures/"
+                            "base_wamas_ubl/tests/samples/"
                             "WAMAS2UBL-SAMPLE_KRETKQ_KRETPQ-DESPATCH_ADVICE.xml",
-                            "base_wamas_ubl/tests/fixtures/"
+                            "base_wamas_ubl/tests/samples/"
                             "WAMAS2UBL-SAMPLE_KRETKQ_KRETPQ-DESPATCH_ADVICE-2.xml",
                         ],
                     },
@@ -135,25 +135,25 @@ class TestBaseWamas(TransactionCase):
             "ubl2wamas": {
                 "picking": [
                     {
-                        "input_file": "base_wamas_ubl/tests/fixtures/"
+                        "input_file": "base_wamas_ubl/tests/samples/"
                         "UBL2WAMAS-SAMPLE_AUSK_AUSP-DESPATCH_ADVICE.xml",
-                        "expected_output": "base_wamas_ubl/tests/fixtures/"
+                        "expected_output": "base_wamas_ubl/tests/samples/"
                         "UBL2WAMAS-SAMPLE_AUSK_AUSP.wamas",
                         "type": "AUSK,AUSP",
                     },
                 ],
                 "reception": [
                     {
-                        "input_file": "base_wamas_ubl/tests/fixtures/"
+                        "input_file": "base_wamas_ubl/tests/samples/"
                         "UBL2WAMAS-SAMPLE_WEAK_WEAP-DESPATCH_ADVICE.xml",
-                        "expected_output": "base_wamas_ubl/tests/fixtures/"
+                        "expected_output": "base_wamas_ubl/tests/samples/"
                         "UBL2WAMAS-SAMPLE_WEAK_WEAP.wamas",
                         "type": "WEAK,WEAP",
                     },
                     {
-                        "input_file": "base_wamas_ubl/tests/fixtures/"
+                        "input_file": "base_wamas_ubl/tests/samples/"
                         "UBL2WAMAS-SAMPLE_KRETK_KRETP-DESPATCH_ADVICE.xml",
-                        "expected_output": "base_wamas_ubl/tests/fixtures/"
+                        "expected_output": "base_wamas_ubl/tests/samples/"
                         "UBL2WAMAS-SAMPLE_KRETK_KRETP.wamas",
                         "type": "KRETK,KRETP",
                     },
@@ -186,23 +186,23 @@ class TestBaseWamas(TransactionCase):
     @freeze_time("2023-12-21 04:12:51")
     def test_export_dict2wamas(self):
         dict_data = {
-            "input": "base_wamas_ubl/tests/fixtures/DICT2WAMAS-SAMPLE_INPUT.dict",
-            "expected_output": "base_wamas_ubl/tests/fixtures/DICT2WAMAS-SAMPLE_OUTPUT.wamas",
+            "input": "base_wamas_ubl/tests/samples/DICT2WAMAS-SAMPLE_INPUT.dict",
+            "expected_output": "base_wamas_ubl/tests/samples/DICT2WAMAS-SAMPLE_OUTPUT.wamas",
         }
         expected_output = (
             file_open(dict_data["expected_output"], "r").read().encode("iso-8859-1")
         )
-        dict_input = safe_eval(file_open(dict_data["input"], "r").read())
+        dict_input = literal_eval(file_open(dict_data["input"], "r").read())
         output = self.base_wamas_ubl.dict2wamas(dict_input, "LST")
         self.assertEqual(output, expected_output)
 
     def test_get_wamas_type(self):
         dict_data = {
-            "input": "base_wamas_ubl/tests/fixtures/CHECKWAMAS-SAMPLE_INPUT.wamas",
-            "expected_output": "base_wamas_ubl/tests/fixtures/CHECKWAMAS-SAMPLE_OUTPUT.dict",
+            "input": "base_wamas_ubl/tests/samples/CHECKWAMAS-SAMPLE_INPUT.wamas",
+            "expected_output": "base_wamas_ubl/tests/samples/CHECKWAMAS-SAMPLE_OUTPUT.dict",
         }
         str_input = file_open(dict_data["input"], "r").read()
-        dict_expected_output = safe_eval(
+        dict_expected_output = literal_eval(
             file_open(dict_data["expected_output"], "r").read()
         )
         lst_telegram_type, wamas_type = self.base_wamas_ubl.get_wamas_type(str_input)

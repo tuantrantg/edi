@@ -9,8 +9,8 @@ class TestWamas2wamas(unittest.TestCase):
 
     knownValuesLines = (
         (
-            file_open(file_path("tests/fixtures/wamas2wamas_input_wea.wamas")).read(),
-            file_open(file_path("tests/fixtures/wamas2wamas_output_wea.wamas")).read(),
+            file_open(file_path("tests/samples/wamas2wamas_input_wea.wamas")).read(),
+            file_open(file_path("tests/samples/wamas2wamas_output_wea.wamas")).read(),
         ),
     )
 

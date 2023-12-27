@@ -8,16 +8,16 @@ from utils import file_open, file_path
 class TestCheckWamas(unittest.TestCase):
     knownValuesLines = (
         (
-            file_open(file_path("tests/fixtures/check_wamas_input_lst.wamas")).read(),
-            file_open(file_path("tests/fixtures/check_wamas_output_lst.dict")).read(),
+            file_open(file_path("tests/samples/check_wamas_input_lst.wamas")).read(),
+            file_open(file_path("tests/samples/check_wamas_output_lst.dict")).read(),
         ),
         (
-            file_open(file_path("tests/fixtures/check_wamas_input_aus.wamas")).read(),
-            file_open(file_path("tests/fixtures/check_wamas_output_aus.dict")).read(),
+            file_open(file_path("tests/samples/check_wamas_input_aus.wamas")).read(),
+            file_open(file_path("tests/samples/check_wamas_output_aus.dict")).read(),
         ),
         (
-            file_open(file_path("tests/fixtures/check_wamas_input_art.wamas")).read(),
-            file_open(file_path("tests/fixtures/check_wamas_output_art.dict")).read(),
+            file_open(file_path("tests/samples/check_wamas_input_art.wamas")).read(),
+            file_open(file_path("tests/samples/check_wamas_output_art.dict")).read(),
         ),
     )
 

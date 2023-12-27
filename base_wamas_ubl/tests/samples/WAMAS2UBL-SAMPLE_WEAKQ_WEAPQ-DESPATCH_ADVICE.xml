@@ -3,11 +3,11 @@
     <cbc:ID/>
     <cbc:IssueDate>2023-05-01</cbc:IssueDate>
     <cac:OrderReference>
-        <cbc:ID/>
+        <cbc:ID>130377</cbc:ID>
         <cbc:IssueDate>2023-05-01</cbc:IssueDate>
     </cac:OrderReference>
     <cac:DespatchSupplierParty>
-        <cbc:CustomerAssignedAccountID>4007720</cbc:CustomerAssignedAccountID>
+        <cbc:CustomerAssignedAccountID>1040</cbc:CustomerAssignedAccountID>
         <cac:Party>
             <cac:PartyName>
                 <cbc:Name>Wood Corner</cbc:Name>
@@ -60,20 +60,64 @@
         <cbc:ID/>
         <cac:Delivery>
             <cac:EstimatedDeliveryPeriod>
-                <cbc:EndDate>2023-05-10</cbc:EndDate>
-                <cbc:EndTime>11:57:14</cbc:EndTime>
+                <cbc:EndDate>2023-05-01</cbc:EndDate>
+                <cbc:EndTime>06:43:39</cbc:EndTime>
             </cac:EstimatedDeliveryPeriod>
         </cac:Delivery>
     </cac:Shipment>
     <cac:DespatchLine>
-        <cbc:ID>1711980</cbc:ID>
-        <cbc:DeliveredQuantity unitCode="XBQ">144.0</cbc:DeliveredQuantity>
+        <cbc:ID/>
+        <cbc:DeliveredQuantity unitCode="C62">1536.0</cbc:DeliveredQuantity>
         <cac:OrderLineReference>
             <cbc:LineID>1</cbc:LineID>
         </cac:OrderLineReference>
         <cac:Item>
             <cac:BuyersItemIdentification>
-                <cbc:ID>8060</cbc:ID>
+                <cbc:ID>1151</cbc:ID>
+            </cac:BuyersItemIdentification>
+        </cac:Item>
+    </cac:DespatchLine><cac:DespatchLine>
+        <cbc:ID/>
+        <cbc:DeliveredQuantity unitCode="XBO">5184.0</cbc:DeliveredQuantity>
+        <cac:OrderLineReference>
+            <cbc:LineID>2</cbc:LineID>
+        </cac:OrderLineReference>
+        <cac:Item>
+            <cac:BuyersItemIdentification>
+                <cbc:ID>1156</cbc:ID>
+            </cac:BuyersItemIdentification>
+        </cac:Item>
+    </cac:DespatchLine><cac:DespatchLine>
+        <cbc:ID/>
+        <cbc:DeliveredQuantity unitCode="C62">3840.0</cbc:DeliveredQuantity>
+        <cac:OrderLineReference>
+            <cbc:LineID>3</cbc:LineID>
+        </cac:OrderLineReference>
+        <cac:Item>
+            <cac:BuyersItemIdentification>
+                <cbc:ID>1160</cbc:ID>
+            </cac:BuyersItemIdentification>
+        </cac:Item>
+    </cac:DespatchLine><cac:DespatchLine>
+        <cbc:ID/>
+        <cbc:DeliveredQuantity unitCode="XBO">3072.0</cbc:DeliveredQuantity>
+        <cac:OrderLineReference>
+            <cbc:LineID>4</cbc:LineID>
+        </cac:OrderLineReference>
+        <cac:Item>
+            <cac:BuyersItemIdentification>
+                <cbc:ID>1162</cbc:ID>
+            </cac:BuyersItemIdentification>
+        </cac:Item>
+    </cac:DespatchLine><cac:DespatchLine>
+        <cbc:ID/>
+        <cbc:DeliveredQuantity unitCode="XBO">3024.0</cbc:DeliveredQuantity>
+        <cac:OrderLineReference>
+            <cbc:LineID>5</cbc:LineID>
+        </cac:OrderLineReference>
+        <cac:Item>
+            <cac:BuyersItemIdentification>
+                <cbc:ID>1176</cbc:ID>
             </cac:BuyersItemIdentification>
         </cac:Item>
     </cac:DespatchLine>

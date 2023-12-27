@@ -603,7 +603,7 @@ grammar = OrderedDict(
             "type": "str",
             "length": 10,
             "dp": False,
-            "dict_key": "package_type",
+            "dict_key": "wamas_code",
             "df_val": False,
             "df_func": False,
         },

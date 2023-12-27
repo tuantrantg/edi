@@ -117,7 +117,7 @@ grammar_convert = OrderedDict(
             "dp": False,
             "dict_key": False,
             "df_val": False,
-            "df_func": False,
+            "df_func": "get_date_from_field('IvKretk_LiefTerm', 8, 'hours')",
         },
         "IvKretk_FertZeit": {
             "type": "datetime",
@@ -125,7 +125,7 @@ grammar_convert = OrderedDict(
             "dp": False,
             "dict_key": False,
             "df_val": False,
-            "df_func": False,
+            "df_func": "get_date_from_field('IvKretk_LiefTerm', 18, 'hours')",
         },
         "IvKretk_Info2Host": {
             "type": "str",

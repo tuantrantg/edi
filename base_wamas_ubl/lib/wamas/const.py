@@ -3,6 +3,8 @@ try:
     from .structure import MappingDict
     from .wamas_grammar import (
         art,
+        arte,
+        artean,
         ausk,
         auskq,
         ausp,
@@ -23,6 +25,8 @@ except ImportError:
     from structure import MappingDict
     from wamas_grammar import (
         art,
+        arte,
+        artean,
         ausk,
         auskq,
         ausp,
@@ -68,6 +72,8 @@ TELEGRAM_HEADER_GRAMMAR = {
 
 LST_TELEGRAM_TYPE_SUPPORT_D2W = [
     "ART",
+    "ARTE",
+    "ARTEAN",
     "WEAK",
     "WEAP",
     "AUSK",
@@ -81,6 +87,8 @@ LST_TELEGRAM_TYPE_SUPPORT_D2W = [
 
 DICT_WAMAS_GRAMMAR = {
     "art": art.grammar,
+    "arte": arte.grammar,
+    "artean": artean.grammar,
     "ausk": ausk.grammar,
     "ausp": ausp.grammar,
     "kretk": kretk.grammar,
@@ -106,6 +114,8 @@ DICT_WAMAS_GRAMMAR = {
 
 LST_TELEGRAM_TYPE_SUPPORT_W2D = [
     "ART",
+    "ARTE",
+    "ARTEAN",
     "AUSK",
     "AUSKQ",
     "AUSP",
@@ -167,7 +177,7 @@ MAPPING_UNITCODE_WAMAS_TO_UBL = {
     "unitCode": MappingDict(
         {
             "BOT": "XBQ",  # plastic bottle
-            "BOUT": "XBQ",  # plastic bottle
+            "BOUT": "C62",  # Unit
             "BOITE": "XBX",  # box
             "LITRE": "LTR",  # litre
             "PET": "XBO",  # glass bottle
@@ -181,7 +191,6 @@ MAPPING_UNITCODE_WAMAS_TO_UBL = {
 MAPPING_UNITCODE_UBL_TO_WAMAS = {"unitCode": MappingDict()}
 for key, value in MAPPING_UNITCODE_WAMAS_TO_UBL["unitCode"].items():
     MAPPING_UNITCODE_UBL_TO_WAMAS["unitCode"][value] = key
-MAPPING_UNITCODE_UBL_TO_WAMAS["unitCode"]["C62"] = "BOT"  # Unit
 
 
 ##
@@ -198,6 +207,12 @@ DICT_DETECT_WAMAS_TYPE = {
     ("KSTAUS",): "Customer Delivery Preference",
     ("LST",): "Supplier",
     ("ART",): "Product",
+    ("ARTE",): "Product Packaging",
+    ("ARTEAN",): "Product EAN",
+    ("ART", "ARTE"): "Product and Product Packaging",
+    ("ART", "ARTEAN"): "Product and Product EAN",
+    ("ARTE", "ARTEAN"): "Product Packaging and Product EAN",
+    ("ART", "ARTE", "ARTEAN"): "Product, Product Packaging and Product EAN",
     ("KST",): "Customer",
 }
 # WAMAS TO WAMAS

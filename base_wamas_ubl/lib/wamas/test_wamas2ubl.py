@@ -10,23 +10,23 @@ class TestWamas2ubl(unittest.TestCase):
 
     knownValuesLines = (
         (
-            file_open(file_path("tests/fixtures/line_WATEPQ_-_normal.wamas")).read(),
-            file_open(file_path("tests/fixtures/line_WATEPQ_-_normal.dict")).read(),
+            file_open(file_path("tests/samples/line_WATEPQ_-_normal.wamas")).read(),
+            file_open(file_path("tests/samples/line_WATEPQ_-_normal.dict")).read(),
         ),
         (
             file_open(
-                file_path("tests/fixtures/line_WATEPQ_-_weirdly_encoded_01.wamas")
+                file_path("tests/samples/line_WATEPQ_-_weirdly_encoded_01.wamas")
             ).read(),
             file_open(
-                file_path("tests/fixtures/line_WATEPQ_-_weirdly_encoded_01.dict")
+                file_path("tests/samples/line_WATEPQ_-_weirdly_encoded_01.dict")
             ).read(),
         ),
         (
             file_open(
-                file_path("tests/fixtures/line_WATEKQ_-_length_off_by_one_01.wamas")
+                file_path("tests/samples/line_WATEKQ_-_length_off_by_one_01.wamas")
             ).read(),
             file_open(
-                file_path("tests/fixtures/line_WATEKQ_-_length_off_by_one_01.dict")
+                file_path("tests/samples/line_WATEKQ_-_length_off_by_one_01.dict")
             ).read(),
         ),
     )

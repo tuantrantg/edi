@@ -8,8 +8,8 @@ from utils import dict2wamas, file_open, file_path
 class TestUtils(unittest.TestCase):
     knownValuesLines = (
         (
-            file_open(file_path("tests/fixtures/dict2wamas_input.dict")).read(),
-            file_open(file_path("tests/fixtures/dict2wamas_output.wamas"))
+            file_open(file_path("tests/samples/dict2wamas_input.dict")).read(),
+            file_open(file_path("tests/samples/dict2wamas_output.wamas"))
             .read()
             .encode("iso-8859-1"),
         ),

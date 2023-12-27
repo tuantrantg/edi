@@ -1,10 +1,11 @@
+import ast
 import codecs
 import logging
 import os
 import re
 import struct
 from collections import OrderedDict
-from datetime import date, datetime
+from datetime import date, datetime, timedelta
 from pprint import pprint
 from random import randint, randrange
 
@@ -106,6 +107,8 @@ def _set_string(val, length, dp):
 
 
 def _set_string_int(val, length, dp):
+    if isinstance(val, float):
+        val = int(val)
     return str(val).rjust(length, "0")[:length]
 
 
@@ -192,6 +195,12 @@ def get_random_quai(*args):
     return "QUAI-%d" % randint(1, 999)
 
 
+def get_date_from_field(*args):
+    dict_wamas, field, number, interval = args
+    res = parse(dict_wamas[field]) + timedelta(**{interval: number})
+    return res
+
+
 def convert_unit_code(key, val):
     if key in LST_FIELD_UNIT_CODE:
         return MAPPING_UNITCODE_UBL_TO_WAMAS["unitCode"].get(val, val)
@@ -202,6 +211,7 @@ def generate_wamas_line(dict_item, grammar, **kwargs):  # noqa: C901
     res = ""
     dict_parent_id = kwargs.get("dict_parent_id", {})
     telegram_type_out = kwargs.get("telegram_type_out", False)
+    dict_wamas_out = {}
     for _key in grammar:
         val = ""
         ttype = grammar[_key].get("type", False)
@@ -250,6 +260,11 @@ def generate_wamas_line(dict_item, grammar, **kwargs):  # noqa: C901
                 )
             elif df_func == "get_random_str_num":
                 args = (length,)
+            elif "get_date_from_field" in df_func:
+                args = (dict_wamas_out,)
+                args += ast.literal_eval(re.search(r"\((.*?)\)", df_func).group(0))
+                df_func = "get_date_from_field"
+
             val = globals()[df_func](*args)
 
         val = convert_unit_code(_key, val)
@@ -265,6 +280,7 @@ def generate_wamas_line(dict_item, grammar, **kwargs):  # noqa: C901
                 val = set_value_to_string(val, ttype, length, dp)
         else:
             val = set_value_to_string(val, ttype, length, dp)
+        dict_wamas_out[_key] = val
         res += val
         lst_parent_key = DICT_PARENT_KEY.get(telegram_type_out, False)
         if lst_parent_key and _key in lst_parent_key:

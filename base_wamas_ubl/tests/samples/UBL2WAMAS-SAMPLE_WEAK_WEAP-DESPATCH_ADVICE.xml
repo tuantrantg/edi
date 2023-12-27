@@ -70,7 +70,7 @@
 	</cac:Shipment>
 	<cac:DespatchLine>
 		<cbc:ID>0000200001151</cbc:ID>
-		<cbc:DeliveredQuantity unitCode="XBQ">1536</cbc:DeliveredQuantity>
+		<cbc:DeliveredQuantity unitCode="C62">1536</cbc:DeliveredQuantity>
 		<cac:OrderLineReference>
 			<cbc:LineID>0001</cbc:LineID>
 		</cac:OrderLineReference>
@@ -100,7 +100,7 @@
 	</cac:DespatchLine>
 	<cac:DespatchLine>
 		<cbc:ID>0000400001160</cbc:ID>
-		<cbc:DeliveredQuantity unitCode="XBQ">3840</cbc:DeliveredQuantity>
+		<cbc:DeliveredQuantity unitCode="C62">3840</cbc:DeliveredQuantity>
 		<cac:OrderLineReference>
 			<cbc:LineID>0003</cbc:LineID>
 		</cac:OrderLineReference>
