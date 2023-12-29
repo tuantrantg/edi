@@ -66,7 +66,7 @@ class TestUbl2wamas(unittest.TestCase):
             "datetime": [
                 {
                     "input_val": "2023-05-01 06:57:23",
-                    "expected_output_val": "20230501065723",
+                    "expected_output_val": "20230501085723",
                     "length": 14,
                     "dp": False,
                 },
@@ -94,7 +94,9 @@ class TestUbl2wamas(unittest.TestCase):
                 length = data["length"]
                 dp = data["dp"]
 
-                output_val = set_value_to_string(input_val, ttype, length, dp)
+                output_val = set_value_to_string(
+                    input_val, ttype, length, dp, do_convert_tz=True
+                )
                 self.assertEqual(output_val, expected_output_val)
 
 

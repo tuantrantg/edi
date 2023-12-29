@@ -43,6 +43,7 @@ def _process_wamas_out(dict_wamas_in, lst_telegram_type_in):
                     dict_parent_id=dict_parent_id,
                     telegram_type_out=telegram_type_out,
                     check_to_set_value_to_string=True,
+                    do_wamas2wamas=True,
                 )
                 if line:
                     res.append(line)

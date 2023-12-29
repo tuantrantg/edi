@@ -49,6 +49,7 @@ except ImportError:
 # WAMAS CONST
 ##
 
+DEFAULT_TIMEZONE = "Europe/Zurich"
 SYSTEM_WAMAS = "WAMAS"
 SYSTEM_ERP = "ODOO"
 

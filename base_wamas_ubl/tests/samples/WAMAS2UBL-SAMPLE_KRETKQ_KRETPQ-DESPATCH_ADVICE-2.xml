@@ -61,7 +61,7 @@
         <cac:Delivery>
             <cac:EstimatedDeliveryPeriod>
                 <cbc:EndDate>2023-05-10</cbc:EndDate>
-                <cbc:EndTime>11:57:14</cbc:EndTime>
+                <cbc:EndTime>09:57:14</cbc:EndTime>
             </cac:EstimatedDeliveryPeriod>
         </cac:Delivery>
     </cac:Shipment>

@@ -2,4 +2,5 @@
 dotty-dict
 factur-x
 pydifact
+pytz
 xmltodict

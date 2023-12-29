@@ -13,7 +13,7 @@
     "author": "Camptocamp,Odoo Community Association (OCA)",
     "depends": ["base_ubl"],
     "external_dependencies": {
-        "python": ["xmltodict", "dotty-dict"],
+        "python": ["xmltodict", "dotty-dict", "pytz"],
     },
     "data": [],
 }

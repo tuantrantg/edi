@@ -9,6 +9,7 @@ from datetime import date, datetime, timedelta
 from pprint import pprint
 from random import randint, randrange
 
+import pytz
 from dateutil.parser import parse
 
 _logger = logging.getLogger("wamas_utils")
@@ -17,6 +18,7 @@ _logger = logging.getLogger("wamas_utils")
 try:
     from . import miniqweb
     from .const import (
+        DEFAULT_TIMEZONE,
         DICT_CHILD_KEY,
         DICT_DETECT_WAMAS_TYPE,
         DICT_PARENT_KEY,
@@ -35,6 +37,7 @@ try:
 except ImportError:
     import miniqweb
     from const import (
+        DEFAULT_TIMEZONE,
         DICT_CHILD_KEY,
         DICT_DETECT_WAMAS_TYPE,
         DICT_PARENT_KEY,
@@ -63,19 +66,20 @@ def file_open(path):
 def get_date(val):
     val = parse(val)
     if isinstance(val, datetime):
-        val = val.strftime("%Y-%m-%d")
+        val = convert_tz(val, DEFAULT_TIMEZONE, "UTC").strftime("%Y-%m-%d")
     return val
 
 
 def get_time(val):
     val = parse(val)
     if isinstance(val, datetime):
-        val = val.strftime("%H:%M:%S")
+        val = convert_tz(val, DEFAULT_TIMEZONE, "UTC").strftime("%H:%M:%S")
     return val
 
 
 def get_current_date():
-    return datetime.utcnow().strftime("%Y-%m-%d")
+    # return convert_tz(datetime.utcnow(), DEFAULT_TIMEZONE, "UTC").strftime("%Y-%m-%d")
+    return date.today()
 
 
 def get_source(*args):
@@ -102,17 +106,17 @@ def get_current_datetime(val=0):
     return datetime.utcnow()
 
 
-def _set_string(val, length, dp):
+def _set_string(val, length, dp, **kwargs):
     return str(val or "").ljust(length)[:length]
 
 
-def _set_string_int(val, length, dp):
+def _set_string_int(val, length, dp, **kwargs):
     if isinstance(val, float):
         val = int(val)
     return str(val).rjust(length, "0")[:length]
 
 
-def _set_string_float(val, length, dp):
+def _set_string_float(val, length, dp, **kwargs):
     res = str(float(val or 0))
 
     # Check if it is int / float or not
@@ -128,12 +132,14 @@ def _set_string_float(val, length, dp):
     return (str_whole_number + str_decimal_portion)[:length]
 
 
-def _set_string_date(val, length, dp):
+def _set_string_date(val, length, dp, **kwargs):
     res = isinstance(val, str) and val != "" and parse(val) or val
 
     if isinstance(res, date):
         res = res.strftime("%Y%m%d")
     elif isinstance(res, datetime):
+        if kwargs.get("do_convert_tz", False):
+            res = convert_tz(res, "UTC", DEFAULT_TIMEZONE)
         res = res.date().strftime("%Y%m%d")
     elif isinstance(res, str):
         res = res.ljust(length)
@@ -145,10 +151,12 @@ def _set_string_date(val, length, dp):
     return res[:length]
 
 
-def _set_string_datetime(val, length, dp):
+def _set_string_datetime(val, length, dp, **kwargs):
     res = isinstance(val, str) and val != "" and parse(val) or val
 
     if isinstance(res, (date, datetime)):
+        if kwargs.get("do_convert_tz", False):
+            res = convert_tz(res, "UTC", DEFAULT_TIMEZONE)
         res = res.strftime("%Y%m%d%H%M%S")
     elif isinstance(res, str):
         res = res.ljust(length)
@@ -160,11 +168,11 @@ def _set_string_datetime(val, length, dp):
     return res.ljust(length)[:length]
 
 
-def _set_string_bool(val, length, dp):
+def _set_string_bool(val, length, dp, **kwargs):
     return (val or "N")[:length]
 
 
-def set_value_to_string(val, ttype, length, dp):
+def set_value_to_string(val, ttype, length, dp, **kwargs):
     setters = dict(
         str=_set_string,
         int=_set_string_int,
@@ -173,7 +181,7 @@ def set_value_to_string(val, ttype, length, dp):
         datetime=_set_string_datetime,
         bool=_set_string_bool,
     )
-    return setters[ttype](val, length, dp)
+    return setters[ttype](val, length, dp, **kwargs)
 
 
 def get_random_str_num(*args):
@@ -212,6 +220,7 @@ def generate_wamas_line(dict_item, grammar, **kwargs):  # noqa: C901
     dict_parent_id = kwargs.get("dict_parent_id", {})
     telegram_type_out = kwargs.get("telegram_type_out", False)
     dict_wamas_out = {}
+    do_convert_tz = not kwargs.get("do_wamas2wamas", False)
     for _key in grammar:
         val = ""
         ttype = grammar[_key].get("type", False)
@@ -277,9 +286,13 @@ def generate_wamas_line(dict_item, grammar, **kwargs):  # noqa: C901
                 or df_func
                 or ttype not in ["float", "int", "date", "datetime"]
             ):
-                val = set_value_to_string(val, ttype, length, dp)
+                val = set_value_to_string(
+                    val, ttype, length, dp, do_convert_tz=do_convert_tz
+                )
         else:
-            val = set_value_to_string(val, ttype, length, dp)
+            val = set_value_to_string(
+                val, ttype, length, dp, do_convert_tz=do_convert_tz
+            )
         dict_wamas_out[_key] = val
         res += val
         lst_parent_key = DICT_PARENT_KEY.get(telegram_type_out, False)
@@ -447,3 +460,11 @@ def detect_wamas_type(infile):
     lst_telegram_type.sort()
     wamas_type = DICT_DETECT_WAMAS_TYPE.get(tuple(lst_telegram_type), "Undefined")
     return data, lst_telegram_type, wamas_type
+
+
+def convert_tz(dt_val, str_from_tz, str_to_tz):
+    from_tz = pytz.timezone(str_from_tz)
+    to_tz = pytz.timezone(str_to_tz)
+    from_tz_dt = from_tz.localize(dt_val)
+    to_tz_dt = from_tz_dt.astimezone(to_tz)
+    return to_tz_dt
