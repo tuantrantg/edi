@@ -3,6 +3,7 @@
 # License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl.html).
 
 from ast import literal_eval
+from base64 import b64decode, b64encode
 from difflib import SequenceMatcher
 
 from freezegun import freeze_time
@@ -18,6 +19,8 @@ class TestBaseWamas(TransactionCase):
     def setUpClass(cls):
         super().setUpClass()
         cls.base_wamas_ubl = cls.env["base.wamas.ubl"]
+        cls.check_wamas_file_wizard = cls.env["check.wamas.file.wizard"]
+        cls.simulate_wamas_file_wizard = cls.env["simulate.wamas.file.wizard"]
         cls.assertXmlTreeEqual = AccountTestInvoicingCommon.assertXmlTreeEqual
         cls.get_xml_tree_from_string = (
             AccountTestInvoicingCommon.get_xml_tree_from_string
@@ -97,6 +100,41 @@ class TestBaseWamas(TransactionCase):
             file_open(expected_output_file, "r").read().encode("iso-8859-1")
         )
         self.assertTrue(self._is_string_similar(output, expected_output))
+
+    def _check_wamas_file_wizard(self, input_file, expected_output_file):
+        str_input = file_open(input_file, "r").read()
+        str_expected_output = file_open(expected_output_file, "r").read()
+        wizard = self.check_wamas_file_wizard.create(
+            {
+                "wamas_file": b64encode(str_input.encode("iso-8859-1")),
+            }
+        )
+        wizard._onchange_wamas_filename()
+        self.assertFalse(wizard.output)
+        wizard.btn_check()
+        self.assertTrue(self._is_string_similar(wizard.output, str_expected_output))
+
+    def _simulate_wamas_file_wizard(
+        self, input_file, expected_output_file, state="success"
+    ):
+        str_input = file_open(input_file, "r").read()
+        wizard = self.simulate_wamas_file_wizard.create(
+            {
+                "wamas_file": b64encode(str_input.encode("iso-8859-1")),
+            }
+        )
+        wizard._onchange_wamas_filename()
+        self.assertFalse(wizard.output_wamas_file)
+        self.assertFalse(wizard.output_wamas_filename)
+        self.assertFalse(wizard.output)
+        wizard.btn_simulate()
+        if state == "success":
+            output = b64decode(wizard.output_wamas_file).decode("iso-8859-1")
+            expected_output = file_open(expected_output_file, "r").read()
+            self.assertTrue(self._is_string_similar(output, expected_output))
+        else:
+            expected_output = file_open(expected_output_file, "r").read()
+            self.assertTrue(self._is_string_similar(wizard.output, expected_output))
 
     def test_convert_wamas2ubl(self):
         dict_data = {
@@ -212,3 +250,32 @@ class TestBaseWamas(TransactionCase):
         self.assertEqual(lst_telegram_type, dict_expected_output["lst_telegram_type"])
         # Wamas Type
         self.assertEqual(wamas_type, dict_expected_output["wamas_type"])
+
+    def test_check_wamas_file_wizard(self):
+        # Success
+        self._check_wamas_file_wizard(
+            "base_wamas_ubl/tests/samples/CHECKWAMAS-SAMPLE_INPUT.wamas",
+            "base_wamas_ubl/tests/samples/CHECKWAMAS-SAMPLE_OUTPUT.txt",
+        )
+        # Raise Exception
+        self._check_wamas_file_wizard(
+            "base_wamas_ubl/tests/samples/CHECKWAMAS-SAMPLE_INPUT-EXCEPTION.wamas",
+            "base_wamas_ubl/tests/samples/CHECKWAMAS-SAMPLE_OUTPUT-EXCEPTION.txt",
+        )
+        self._check_wamas_file_wizard(
+            "base_wamas_ubl/tests/samples/CHECKWAMAS-SAMPLE_INPUT-EXCEPTION-2.wamas",
+            "base_wamas_ubl/tests/samples/CHECKWAMAS-SAMPLE_OUTPUT-EXCEPTION-2.txt",
+        )
+
+    def test_simulate_wamas_file_wizard(self):
+        # Success
+        self._simulate_wamas_file_wizard(
+            "base_wamas_ubl/tests/samples/SIMULATEWAMAS-SAMPLE_INPUT.wamas",
+            "base_wamas_ubl/tests/samples/SIMULATEWAMAS-SAMPLE_OUTPUT.wamas",
+        )
+        # Raise Exception
+        self._simulate_wamas_file_wizard(
+            "base_wamas_ubl/tests/samples/SIMULATEWAMAS-SAMPLE_INPUT-EXCEPTION.wamas",
+            "base_wamas_ubl/tests/samples/SIMULATEWAMAS-SAMPLE_OUTPUT-EXCEPTION.txt",
+            "fail",
+        )
