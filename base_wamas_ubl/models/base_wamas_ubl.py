@@ -8,6 +8,7 @@ from ..lib.wamas.ubl2wamas import ubl2wamas
 from ..lib.wamas.utils import (
     detect_wamas_type,
     dict2wamas,
+    get_float,
     get_supported_telegram,
     get_supported_telegram_w2w,
 )
@@ -69,3 +70,6 @@ class BaseWamasUbl(models.AbstractModel):
     @api.model
     def get_supported_telegram_w2w(self):
         return get_supported_telegram_w2w()
+
+    def get_float(self, val, length=12, decimal_place=3):
+        return get_float(val, length=length, decimal_place=decimal_place)

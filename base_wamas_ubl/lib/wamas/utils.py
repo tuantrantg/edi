@@ -478,3 +478,20 @@ def get_supported_telegram():
 
 def get_supported_telegram_w2w():
     return DICT_CONVERT_WAMAS_TYPE
+
+
+def get_float(val, length=12, decimal_place=3):
+    res = val.strip()
+
+    try:
+        if len(res) >= length:
+            str_whole_number = res[: length - decimal_place]
+            str_decimal_portion = res[decimal_place * -1 :]
+
+            res = str_whole_number + "." + str_decimal_portion
+
+            res = float(res.strip())
+    except TypeError:
+        _logger.debug("Cannot convert value '%s' to float type", val)
+
+    return res

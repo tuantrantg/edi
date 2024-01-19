@@ -14,38 +14,21 @@ try:
         DICT_TUPLE_KEY_PICKING,
         DICT_TUPLE_KEY_RECEPTION,
     )
-    from .utils import dict2ubl, file_open, file_path, wamas2dict
+    from .utils import dict2ubl, file_open, file_path, get_float, wamas2dict
 except ImportError:
     from const import DICT_FLOAT_FIELD, DICT_TUPLE_KEY_PICKING, DICT_TUPLE_KEY_RECEPTION
-    from utils import dict2ubl, file_open, file_path, wamas2dict
+    from utils import dict2ubl, file_open, file_path, get_float, wamas2dict
 
 ##
 # Data transformations
 ##
 
 
-def _get_float(val, length=12, decimal_place=3):
-    res = val.strip()
-
-    try:
-        if len(res) >= length:
-            str_whole_number = res[: length - decimal_place]
-            str_decimal_portion = res[decimal_place * -1 :]
-
-            res = str_whole_number + "." + str_decimal_portion
-
-            res = float(res.strip())
-    except TypeError:
-        _logger.debug("Cannot convert value '%s' to float type", val)
-
-    return res
-
-
 def _convert_float_field(data):
     for _field in DICT_FLOAT_FIELD:  # noqa: F405
         val_field = data.get(_field, False)
         if val_field:
-            data[_field] = _get_float(
+            data[_field] = get_float(
                 val_field,
                 DICT_FLOAT_FIELD[_field][0],
                 DICT_FLOAT_FIELD[_field][1],
