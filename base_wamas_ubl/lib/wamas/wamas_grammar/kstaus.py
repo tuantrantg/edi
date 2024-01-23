@@ -72,7 +72,7 @@ grammar = OrderedDict(
             "df_func": False,
         },
         "KstAus_RfNr": {
-            "type": "int",
+            "type": "string",
             "length": 5,
             "dp": False,
             "dict_key": "priority_sequence",
