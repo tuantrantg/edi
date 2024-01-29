@@ -114,6 +114,7 @@ class TestBaseWamas(TransactionCase):
         wizard.btn_check()
         self.assertTrue(self._is_string_similar(wizard.output, str_expected_output))
 
+    @freeze_time("2023-12-20 09:11:16")
     def _wamas_ubl_wiz_simulate(
         self, input_file, expected_output_file, state="success"
     ):
